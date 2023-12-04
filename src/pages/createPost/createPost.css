@@ -1,0 +1,86 @@
+.form-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+}
+
+.form-container h1 {
+  margin-bottom: var(--space-4);
+}
+
+form {
+  display: flex;
+  flex-direction: column;
+  width: 80%;
+  margin: 0 auto;
+}
+
+form div {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+}
+
+form hr {
+  border-color: var(--color-gray-300);
+  margin: var(--space-4);
+}
+
+label {
+  color: var(--color-gray-100);
+  display: block;
+  margin: var(--space-6) auto var(--space-2) auto;
+}
+
+input,
+textarea,
+select {
+  font: inherit;
+  padding: var(--space-2);
+  border-radius: var(--border-radius-small);
+  border: none;
+  width: 80%;
+}
+
+select {
+  margin: var(--space-6) auto 0 auto;
+}
+
+.create-post-image label {
+  text-align: center;
+  width: 80%;
+  margin: var(--space-6) auto 0 auto;
+}
+
+.create-post-image input {
+  display: none;
+  visibility: hidden;
+}
+
+textarea {
+  resize: vertical;
+}
+
+.create-post-btns {
+  width: 80%;
+  flex-direction: row;
+  margin: var(--space-8) auto;
+  align-items: center;
+  justify-content: space-between;
+}
+.create-post-btns button {
+  width: 45%;
+}
+
+@media (max-width: 55rem) {
+  form,
+  input,
+  textarea,
+  select,
+  .create-post-image label,
+  .create-post-btns {
+    width: 95%;
+  }
+}
