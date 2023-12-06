@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { toast, ToastContainer } from "react-toastify";
+import { toast } from "react-toastify";
 
 import "./createPost.css";
 
@@ -17,8 +17,9 @@ const CreatePostPage = () => {
     if (title.trim() === "") return toast.error("Title required");
     if (content.trim() === "") return toast.error("description required");
     if (category.trim() === "") return toast.error("category required");
-    if (price.trim() === "") return toast.error("price required");
-    if (file.trim() === "") return toast.error("Image required");
+    if (price <= 0) return toast.error("price required");
+    if (quantity <= 0) return toast.error("Quantity required");
+    if (!file) return toast.error("Image required");
 
     const formData = new FormData();
     formData.append("image", file);
@@ -27,12 +28,14 @@ const CreatePostPage = () => {
     formData.append("category", category);
     formData.append("quantity", quantity);
     formData.append("price", price);
+
+    //TODO send dta to server
   };
 
   return (
     <main className="form-container">
-      <ToastContainer theme="dark" position="top-center" />
       <h1>Add new Product</h1>
+      {file && <img src={URL.createObjectURL(file)} alt="" />}
       <form onSubmit={formSubmitHandler}>
         <div className="create-post-image">
           <label className="btn" htmlFor="file">

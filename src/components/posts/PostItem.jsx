@@ -15,12 +15,10 @@ const PostItem = ({ post }) => {
         <a className="btn btn-alt" href="/admin/products/<%= product.id %>">View & Edit</a>
         <button className="btn btn-alt" data-productid="<%= product.id %>" data-csrf="<%= locals.csrfToken %>">Delete</button>
       <% } else { %> */}
-          <Link className="btn btn-alt" to={`/post/details/${post._id}`}>
+          <Link className="btn btn-alt" to={`/posts/details/${post._id}`}>
             View Details
           </Link>
-          <Link className="btn btn-alt" to={`/post/details/${post._id}`}>
-            Add to cart
-          </Link>
+          <Link className="btn btn-alt">Add to cart</Link>
           {/* <% } %> */}
         </div>
       </div>
