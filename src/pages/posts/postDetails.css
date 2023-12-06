@@ -1,6 +1,6 @@
 .post-details {
   display: flex;
-  width: 55%;
+  width: 67.5rem;
   flex-direction: column;
   margin: auto;
   align-items: center;
@@ -46,24 +46,28 @@
 
 .post-details-content {
   font-size: 1.5rem;
-  line-height: 1.5;
+  background-color: var(--color-primary-500-bg);
+  padding: var(--space-8);
+  line-height: 1.25;
   color: var(--primary-color-400);
   margin-bottom: 4rem;
 }
+
 @media (min-width: 55rem) {
   .post-details-image-wrapper {
     display: flex;
+    justify-content: space-between;
   }
 
   .post-details-image {
-    width: 25rem;
+    width: 32.5rem;
     height: 22.5rem;
     margin: var(--space-4);
   }
   .post-detials-title {
     margin: 4rem;
   }
-  
+
   #btns-container {
     display: flex;
     flex-direction: column;
@@ -71,7 +75,7 @@
     /* margin-bottom: 4rem; */
     width: 100%;
   }
-  
+
   #btns-container .seconde {
     margin-top: 4rem;
   }

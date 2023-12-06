@@ -86,20 +86,6 @@
   #product-details {
     max-width: 55rem;
   }
-  #product-details header {
-    display: flex;
-  }
-
-  #product-details img {
-    transition: 1000ms;
-    width: 25rem;
-    height: 22.5rem;
-    margin: var(--space-4);
-  }
-  #product-details img:hover {
-    transition: 1000ms;
-    transform: rotateZ(-10deg);
-  }
 
 .product-item-actions {
   display: flex;
