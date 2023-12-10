@@ -2,6 +2,8 @@ import { Link, useParams } from "react-router-dom";
 import { posts } from "../../dummyData";
 
 import "./postDetails.css";
+import AddReview from "../../components/reviews/AddReview";
+import ReviewList from "../../components/reviews/ReviewsList";
 
 const PostDetailsPage = () => {
   const params = useParams();
@@ -23,13 +25,18 @@ const PostDetailsPage = () => {
               <Link className="btn btn-alt" to={`/post/details/${post._id}`}>
                 Add to cart
               </Link>
-              <Link className="btn btn-alt seconde" to={`/posts/details/${post._id}`}>
+              <Link
+                className="btn btn-alt seconde"
+                to={`/posts/details/${post._id}`}
+              >
                 Add to wishList
               </Link>
             </div>
           </div>
         </div>
         <p className="post-details-content">{post.content}</p>
+        <AddReview />
+        <ReviewList />
       </section>
     </main>
   );
