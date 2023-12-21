@@ -5,9 +5,11 @@ import { toast } from "react-toastify";
 import swal from "sweetalert";
 
 import "./profile.css";
+import UpdateProfileModel from "./UpdateProfileModel";
 
 const Profile = () => {
   const [file, setFile] = useState(null);
+  const [updateProfile, setUpdateProfile] = useState(false);
 
   useEffect(() => {
     window.scrollTo(0, 0);
@@ -48,7 +50,10 @@ const Profile = () => {
           />
           <form onSubmit={formSubmitHandler} className="profile-photo-form">
             <abbr title="choose profile photo">
-              <label htmlFor="file" className="btn btn-alt upload-profile-photo-label">
+              <label
+                htmlFor="file"
+                className="btn btn-alt upload-profile-photo-label"
+              >
                 Change photo
               </label>
             </abbr>
@@ -69,7 +74,14 @@ const Profile = () => {
         <div className="user-joined-date">
           <strong>Joined Date:</strong> <span>fri 26 040 2002</span>
         </div>
-        <button className="btn btn-alt update-profile-btn">Update your account</button>
+        <button
+          onClick={() => {
+            setUpdateProfile(true);
+          }}
+          className="btn btn-alt update-profile-btn"
+        >
+          Update your account
+        </button>
       </div>
       <div className="profile-posts-list">
         <h2>Your orders</h2>
@@ -79,6 +91,7 @@ const Profile = () => {
       <button onClick={deleteAccountHandler} className="delete-account-btn">
         Delete Your Account
       </button>
+      {updateProfile && <UpdateProfileModel setUpdateProfile={setUpdateProfile} />}
     </main>
   );
 };
