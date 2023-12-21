@@ -9,6 +9,8 @@ import SignupPage from "./pages/auth/SignupPage";
 import AdminDashboard from "./pages/admin/AdminDashboardPage";
 import CreatePostPage from "./pages/createPost/CreatePostPage";
 import PostDetailsPage from "./pages/posts/PostDetailsPage";
+import CategoryPage from "./pages/category/CategoryPage";
+import Profile from "./pages/profile/Profile";
 
 function App() {
   return (
@@ -20,9 +22,13 @@ function App() {
         <Route path="/login" element={<LoginPage />} />
         <Route path="/signup" element={<SignupPage />} />
         {/* <Route path="/posts" element={<PostsPage />} /> */}
-        {/* TODO create-post on navlinks */}
-        <Route path="/posts/create-post" element={<CreatePostPage />} />
-        <Route path="/posts/details/:id" element={<PostDetailsPage />} />
+        <Route path="posts">
+          {/* TODO create-post on navlinks */}
+          <Route path="create-post" element={<CreatePostPage />} />
+          <Route path="details/:id" element={<PostDetailsPage />} />
+          <Route path="categories/:category" element={<CategoryPage />} />
+        </Route>
+        <Route path="/profile" element={<Profile />} />
         <Route path="/admin-dashboard" element={<AdminDashboard />} />
       </Routes>
     </BrowserRouter>

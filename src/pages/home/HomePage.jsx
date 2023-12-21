@@ -1,9 +1,9 @@
+import { Link } from "react-router-dom";
+import PostList from "../../components/posts/PostList";
 import "./allProducts.css";
 import "./products.css";
 
 import { posts, categories } from "../../dummyData";
-import PostItem from "../../components/posts/PostItem";
-import { Link } from "react-router-dom";
 
 const HomePage = () => {
   return (
@@ -22,16 +22,7 @@ const HomePage = () => {
           ))}
         </ul>
       </section>
-      <section id="all-products">
-        <h1>All Products</h1>
-        <ul id="products-grid">
-          {posts.map((post) => (
-            <li key={post._id}>
-              <PostItem post={post} />
-            </li>
-          ))}
-        </ul>
-      </section>
+      <PostList title={"All Products"} posts={posts} />
     </main>
   );
 };
