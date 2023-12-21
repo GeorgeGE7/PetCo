@@ -17,7 +17,7 @@ const UpdateProfileModel = ({ setUpdateProfile }) => {
 
     const updatedUser = { username, bio };
 
-    if (password.trim() != "") {
+    if (password.trim() !== "") {
       updatedUser.password = password;
     }
 

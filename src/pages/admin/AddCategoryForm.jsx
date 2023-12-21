@@ -1,0 +1,35 @@
+import { useState } from "react";
+import { toast } from "react-toastify";
+
+const AddCategoryForm = () => {
+  const [categoryTitle, setCategoryTitle] = useState("");
+  const formSubmitHandler = (e) => {
+    e.preventDefault();
+    if (categoryTitle.trim() === "") {
+      return toast.error("Category title is required");
+    }
+
+    console.log({ categoryTitle });
+  };
+  return (
+    <div id="add-category">
+      <h5 id="add-category-title">Add new category</h5>
+      <form id="add-category-form" onSubmit={formSubmitHandler}>
+        <div>
+          <label htmlFor="title">Category title</label>
+          <input
+            value={categoryTitle}
+            onChange={(e) => setCategoryTitle(e.target.value)}
+            type="text"
+            id="title"
+          />
+        </div>
+        <button className="btn" id="add-category-btn" type="submit">
+          Add category
+        </button>
+      </form>
+    </div>
+  );
+};
+
+export default AddCategoryForm;
