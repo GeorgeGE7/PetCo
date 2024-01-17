@@ -5,7 +5,6 @@ import "./auth-form.css";
 
 const ForgotPasswordPage = () => {
   const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
 
   const formSubmitHandler = (e) => {
     e.preventDefault();
