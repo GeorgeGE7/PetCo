@@ -1,10 +1,9 @@
 import { useState } from "react";
-import { Link } from "react-router-dom";
 import { toast } from "react-toastify";
 
 import "./auth-form.css";
 
-const LoginPage = () => {
+const ForgotPasswordPage = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
@@ -15,17 +14,13 @@ const LoginPage = () => {
       return toast.error("Email is required");
     }
 
-    if (password.trim() == "") {
-      return toast.error("Password is required");
-    }
-
-    console.log({ email, password });
+    console.log({ email });
   };
 
   return (
     <main>
       <div className="form-container">
-        <h1>Welcome back :)</h1>
+        <h1>Reset password</h1>
         <form onSubmit={formSubmitHandler} className="auth-form">
           <div className="auth-form">
             <label htmlFor="email">Email</label>
@@ -36,28 +31,13 @@ const LoginPage = () => {
               onChange={(e) => setEmail(e.target.value)}
             />
           </div>
-          <div className="auth-form">
-            <label htmlFor="password">Password</label>
-            <input
-              type="password"
-              id="password"
-              value={password}
-              onChange={(e) => setPassword(e.target.value)}
-            />
-          </div>
-
-          <p>Didn't remember your password? <Link to="/forgot-password">Reset password</Link></p>
 
           <button className="btn" type="submit">
-            Login
+            Submit
           </button>
         </form>
-        <p className="login-link">
-          Don't has an account?
-          <Link to="/signup"> Create an account</Link>
-        </p>
       </div>
     </main>
   );
 };
-export default LoginPage;
+export default ForgotPasswordPage;

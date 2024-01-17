@@ -1,0 +1,13 @@
+.form-container {
+  width: 100%;
+  margin: 0 auto 4rem auto;
+}
+
+.form-container form {
+  margin: 0 auto var(--space-6) auto;
+}
+
+.form-container .btn {
+  width: 100%;
+  margin: var(--space-6) auto var(--space-2) auto;
+}

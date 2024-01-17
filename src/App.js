@@ -16,6 +16,9 @@ import PostsTable from "./pages/admin/PostsTable";
 import CategoriesTable from "./pages/admin/CategoriesTable";
 import ReviewsTable from "./pages/admin/ReviewsTable";
 import OrdersTable from "./pages/admin/OrdersTabel";
+import ForgotPasswordPage from "./pages/auth/ForgotPasswordPage";
+import ResetForgotPasswordPage from "./pages/auth/ResetForgotPasswordPage";
+import NotFoundPage from "./pages/notFound/NotFoundPage";
 
 function App() {
   return (
@@ -26,6 +29,8 @@ function App() {
         <Route path="/" element={<HomePage />} />
         <Route path="/login" element={<LoginPage />} />
         <Route path="/signup" element={<SignupPage />} />
+        <Route path="/forgot-password" element={<ForgotPasswordPage />} />
+        <Route path="/reset-forgot-password" element={<ResetForgotPasswordPage />} />
         <Route path="/profile/:id" element={<Profile />} />
         {/* <Route path="/posts" element={<PostsPage />} /> */}
         <Route path="posts">
@@ -42,6 +47,7 @@ function App() {
           <Route path="reviews-table" element={<ReviewsTable />} />
           <Route path="orders-table" element={<OrdersTable />} />
         </Route>
+        <Route path="*" element={<NotFoundPage />} />
       </Routes>
     </BrowserRouter>
   );
