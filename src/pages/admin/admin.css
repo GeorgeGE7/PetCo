@@ -134,7 +134,7 @@
   margin-bottom: var(--space-4);
 }
 
-@media (max-width: 55rem) {
+@media (max-width: 70rem) {
   .admin-sidebar{
     display: none;
   }

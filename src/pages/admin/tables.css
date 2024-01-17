@@ -66,3 +66,25 @@ tr:hover{
 #table-btns-group button a{
 color: var(--color-gray-600);
 }
+
+@media(max-width: 90rem){
+  #table-btns-group{
+    flex-direction: column;
+    align-items: center;
+  }
+  #table-btns-group button:first-child{
+    margin-bottom: var(--space-2);
+  }
+  th, td{
+    padding: 7px 2px;
+  }
+  #username-and-image{
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+  }
+  #username-and-image img {
+    margin-right: 0;
+    margin-bottom: var(--space-2);
+  }
+}

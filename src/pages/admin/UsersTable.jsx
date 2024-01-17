@@ -1,10 +1,30 @@
 import React from "react";
+import swal from "sweetalert";
+
 import AdminSidebar from "./AdminSidebar";
 
 import "./tables.css";
 import { Link } from "react-router-dom";
 
 const UsersTable = () => {
+  const deleteTableItemHandler = () => {
+    swal({
+      title: "Are you sure?",
+      text: "Once deleted, you will not be able to recover this!",
+      icon: "warning",
+      buttons: true,
+      dangerMode: true,
+    }).then((willDelete) => {
+      if (willDelete) {
+        swal("Review has been deleted!", {
+          icon: "success",
+        });
+      } else {
+        swal("No changes happened");
+      }
+    });
+  };
+
   return (
     <main id="admin-main-table">
       <AdminSidebar />
@@ -35,7 +55,7 @@ const UsersTable = () => {
                     <button className="btn">
                       <Link to={"/profile/1"}>View user</Link>
                     </button>
-                    <button className="btn btn-alt">
+                    <button onClick={deleteTableItemHandler} className="btn btn-alt">
                       Delete User
                     </button>
                   </div>
