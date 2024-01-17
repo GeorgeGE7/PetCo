@@ -11,6 +11,7 @@ import CreatePostPage from "./pages/createPost/CreatePostPage";
 import PostDetailsPage from "./pages/posts/PostDetailsPage";
 import CategoryPage from "./pages/category/CategoryPage";
 import Profile from "./pages/profile/Profile";
+import UsersTable from "./pages/admin/UsersTable";
 
 function App() {
   return (
@@ -30,6 +31,7 @@ function App() {
         </Route>
         <Route path="/profile" element={<Profile />} />
         <Route path="/admin-dashboard" element={<AdminDashboard />} />
+        <Route path="/admin-dashboard/users-table" element={<UsersTable />} />
       </Routes>
     </BrowserRouter>
   );

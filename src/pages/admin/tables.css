@@ -1,0 +1,68 @@
+#admin-main-table{
+  display: flex;
+  overflow: hidden;
+}
+
+#table-container {
+flex: 10;
+margin: var(--space-8) auto;
+padding-top: var(--space-2);
+}
+
+#table-title{
+  color: #9e9e9e;
+  margin-bottom: var(--space-4);
+}
+
+table{
+  width: 100%;
+  text-align: center;
+  border-collapse: collapse;
+  border-radius: 8px;
+  overflow: hidden;
+}
+
+th{
+  background-color: var(--color-gray-600);
+}
+th, td{
+  border: 2px solid var(--color-gray-600);
+  padding: var(--space-4);
+  font-weight: 600;
+}
+
+tr:nth-child(even){
+  background-color: var(--color-gray-300);
+}
+
+tr:hover{
+  background-color: #5e5e5e;
+}
+
+#username-and-image{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+#username-and-image img {
+  height: 50px;
+  width: 50px;
+  border-radius: 50%;
+  margin-right: var(--space-2);
+  object-fit: cover;
+}
+
+#table-btns-group{
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-evenly;
+}
+
+
+#table-btns-group button{
+  padding: var(--space-2);
+}
+#table-btns-group button a{
+color: var(--color-gray-600);
+}
