@@ -12,6 +12,10 @@ import PostDetailsPage from "./pages/posts/PostDetailsPage";
 import CategoryPage from "./pages/category/CategoryPage";
 import Profile from "./pages/profile/Profile";
 import UsersTable from "./pages/admin/UsersTable";
+import PostsTable from "./pages/admin/PostsTable";
+import CategoriesTable from "./pages/admin/CategoriesTable";
+import ReviewsTable from "./pages/admin/ReviewsTable";
+import OrdersTable from "./pages/admin/OrdersTabel";
 
 function App() {
   return (
@@ -22,6 +26,7 @@ function App() {
         <Route path="/" element={<HomePage />} />
         <Route path="/login" element={<LoginPage />} />
         <Route path="/signup" element={<SignupPage />} />
+        <Route path="/profile/:id" element={<Profile />} />
         {/* <Route path="/posts" element={<PostsPage />} /> */}
         <Route path="posts">
           {/* TODO create-post on navlinks */}
@@ -29,9 +34,14 @@ function App() {
           <Route path="details/:id" element={<PostDetailsPage />} />
           <Route path="categories/:category" element={<CategoryPage />} />
         </Route>
-        <Route path="/profile" element={<Profile />} />
-        <Route path="/admin-dashboard" element={<AdminDashboard />} />
-        <Route path="/admin-dashboard/users-table" element={<UsersTable />} />
+        <Route path="admin-dashboard">
+          <Route index element={<AdminDashboard />} />
+          <Route path="users-table" element={<UsersTable />} />
+          <Route path="posts-table" element={<PostsTable />} />
+          <Route path="categories-table" element={<CategoriesTable />} />
+          <Route path="reviews-table" element={<ReviewsTable />} />
+          <Route path="orders-table" element={<OrdersTable />} />
+        </Route>
       </Routes>
     </BrowserRouter>
   );
