@@ -2,11 +2,16 @@ import { useState } from "react";
 import { Link } from "react-router-dom";
 import { toast } from "react-toastify";
 
+import { useDispatch } from "react-redux";
+import { loginUser } from "../../redux/apiCalls/authApiCall";
+
 import "./auth-form.css";
 
 const LoginPage = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+
+  const dispatch = useDispatch();
 
   const formSubmitHandler = (e) => {
     e.preventDefault();
@@ -20,6 +25,7 @@ const LoginPage = () => {
     }
 
     console.log({ email, password });
+    dispatch(loginUser({ email, password }));
   };
 
   return (
@@ -46,7 +52,10 @@ const LoginPage = () => {
             />
           </div>
 
-          <p>Didn't remember your password? <Link to="/forgot-password">Reset password</Link></p>
+          <p>
+            Didn't remember your password?{" "}
+            <Link to="/forgot-password">Reset password</Link>
+          </p>
 
           <button className="btn" type="submit">
             Login

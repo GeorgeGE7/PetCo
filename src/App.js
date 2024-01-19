@@ -1,4 +1,5 @@
-import { BrowserRouter, Routes, Route } from "react-router-dom";
+import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
+import { useSelector } from "react-redux";
 import { ToastContainer } from "react-toastify";
 
 import Header from "./components/header/Header";
@@ -21,31 +22,62 @@ import ResetForgotPasswordPage from "./pages/auth/ResetForgotPasswordPage";
 import NotFoundPage from "./pages/notFound/NotFoundPage";
 
 function App() {
+  const { user } = useSelector((state) => state.auth);
   return (
     <BrowserRouter className="App">
       <ToastContainer theme="dark" position="top-center" />
       <Header />
       <Routes>
         <Route path="/" element={<HomePage />} />
-        <Route path="/login" element={<LoginPage />} />
-        <Route path="/signup" element={<SignupPage />} />
+        <Route
+          path="/login"
+          element={!user ? <LoginPage /> : <Navigate to="/" />}
+        />
+        <Route
+          path="/signup"
+          element={!user ? <SignupPage /> : <Navigate to="/" />}
+        />
         <Route path="/forgot-password" element={<ForgotPasswordPage />} />
-        <Route path="/reset-forgot-password" element={<ResetForgotPasswordPage />} />
+        <Route
+          path="/reset-forgot-password"
+          element={<ResetForgotPasswordPage />}
+        />
         <Route path="/profile/:id" element={<Profile />} />
         {/* <Route path="/posts" element={<PostsPage />} /> */}
         <Route path="posts">
           {/* TODO create-post on navlinks */}
-          <Route path="create-post" element={<CreatePostPage />} />
+          <Route
+            path="create-product"
+            element={user ? <CreatePostPage /> : <Navigate to="/" />}
+          />
           <Route path="details/:id" element={<PostDetailsPage />} />
           <Route path="categories/:category" element={<CategoryPage />} />
         </Route>
         <Route path="admin-dashboard">
-          <Route index element={<AdminDashboard />} />
-          <Route path="users-table" element={<UsersTable />} />
-          <Route path="posts-table" element={<PostsTable />} />
-          <Route path="categories-table" element={<CategoriesTable />} />
-          <Route path="reviews-table" element={<ReviewsTable />} />
-          <Route path="orders-table" element={<OrdersTable />} />
+          <Route
+            index
+            element={user?.isAdmin ? <AdminDashboard /> : <Navigate to="/" />}
+          />
+          <Route
+            path="users-table"
+            element={user?.isAdmin ? <UsersTable /> : <Navigate to="/" />}
+          />
+          <Route
+            path="posts-table"
+            element={user?.isAdmin ? <PostsTable /> : <Navigate to="/" />}
+          />
+          <Route
+            path="categories-table"
+            element={user?.isAdmin ? <CategoriesTable /> : <Navigate to="/" />}
+          />
+          <Route
+            path="reviews-table"
+            element={user?.isAdmin ? <ReviewsTable /> : <Navigate to="/" />}
+          />
+          <Route
+            path="orders-table"
+            element={user?.isAdmin ? <OrdersTable /> : <Navigate to="/" />}
+          />
         </Route>
         <Route path="*" element={<NotFoundPage />} />
       </Routes>
