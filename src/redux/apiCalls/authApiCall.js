@@ -3,6 +3,18 @@ import { toast } from "react-toastify";
 import { authActions } from "../slices/authSlice";
 import BASE_URL from "../../utils/request";
 
+export function signupUser(user) {
+  return async (dispatch) => {
+    try {
+      const response = await BASE_URL.post("/api/auth/register", user);
+      dispatch(authActions.signup(response.data.message));
+    } catch (error) {
+      toast.error(error.response.data.message);
+      console.log(`error in signupUser: ${error}`);
+    }
+  };
+}
+
 export function loginUser(user) {
   return async (dispatch) => {
     try {
