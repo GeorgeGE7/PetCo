@@ -111,7 +111,10 @@ const Profile = () => {
         Delete Your Account
       </button>
       {updateProfile && (
-        <UpdateProfileModel setUpdateProfile={setUpdateProfile} />
+        <UpdateProfileModel
+          userProfile={userProfile}
+          setUpdateProfile={setUpdateProfile}
+        />
       )}
     </main>
   );

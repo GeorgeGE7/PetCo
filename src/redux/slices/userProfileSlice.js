@@ -12,6 +12,9 @@ const userProfileSlice = createSlice({
     setUserProfilePhoto(state, action) {
       state.userProfile.profilePhoto = action.payload;
     },
+    updateUserProfile(state, action) {
+      state.userProfile = action.payload;
+    },
   },
 });
 

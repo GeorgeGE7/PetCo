@@ -19,6 +19,15 @@ const authSlice = createSlice({
     signup(state, action) {
       state.signupMessage = action.payload;
     },
+    setUserProfilePhoto(state, action) {
+      state.user.profilePhoto = action.payload;
+    },
+    setUserProfileUsername(state, action) {
+      state.user.username = action.payload;
+    },
+    setUserProfileBio(state, action) {
+      state.user.bio = action.payload;
+    },
   },
 });
 
