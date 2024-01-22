@@ -72,5 +72,35 @@
 @media (max-width: 60rem) {
   .update-profile-form {
     width: 90%;
+    padding: var(--space-4);
   }
+  .update-profile-form-close {
+    width: 2rem;
+    height: 2rem;
+    font-size: 1.6rem;
+    margin: var(--space-2);
+  }
+  
+  .update-profile-h1 {
+    margin: var(--space-2) auto;
+    margin-bottom: calc(var(--space-2) * 1.5);
+    font-size: 1.37rem;
+    font-weight: 600;
+  }
+  
+  .update-profile-input,
+  .update-profile-textarea {
+    padding: var(--space-4);
+    margin: var(--space-2) auto;
+    font-size: 1rem;
+  }
+  
+  .update-profile-form-btn {
+    border-radius: 12px;
+    width: 98%;
+    font-size: 1.2rem;
+    margin: var(--space-2) auto;
+    margin-top: calc(var(--space-2) * 2);
+  }
+  
 }

@@ -12,6 +12,7 @@ import {
 import UpdateProfileModel from "./UpdateProfileModel";
 
 import "./profile.css";
+import UpdateProfileAddressModel from "./UpdateAddressModel";
 
 const Profile = () => {
   const dispatch = useDispatch();
@@ -19,6 +20,7 @@ const Profile = () => {
 
   const [file, setFile] = useState(null);
   const [updateProfile, setUpdateProfile] = useState(false);
+  const [updateProfileAddress, setUpdateProfileAddress] = useState(false);
 
   const { id } = useParams();
 
@@ -93,14 +95,24 @@ const Profile = () => {
           <strong>Joined Date:</strong>{" "}
           <span>{new Date(userProfile?.createdAt).toDateString()}</span>
         </div>
-        <button
-          onClick={() => {
-            setUpdateProfile(true);
-          }}
-          className="btn btn-alt update-profile-btn"
-        >
-          Update your account
-        </button>
+        <div id="update-profile-btns">
+          <button
+            onClick={() => {
+              setUpdateProfile(true);
+            }}
+            className="btn btn-alt update-profile-btn"
+          >
+            Update your account
+          </button>
+          <button
+            onClick={() => {
+              setUpdateProfileAddress(true);
+            }}
+            className="btn btn-alt update-profile-btn"
+          >
+            Update your address
+          </button>
+        </div>
       </div>
       <div className="profile-posts-list">
         <h2>Your orders</h2>
@@ -114,6 +126,12 @@ const Profile = () => {
         <UpdateProfileModel
           userProfile={userProfile}
           setUpdateProfile={setUpdateProfile}
+        />
+      )}
+      {updateProfileAddress && (
+        <UpdateProfileAddressModel
+          userProfile={userProfile}
+          setUpdateProfile={setUpdateProfileAddress}
         />
       )}
     </main>

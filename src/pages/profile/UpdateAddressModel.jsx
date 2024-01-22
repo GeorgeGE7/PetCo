@@ -14,7 +14,7 @@ const UpdateProfileModel = ({ setUpdateProfile, userProfile }) => {
   const [city, setCity] = useState(userProfile?.city);
   const [address, setAddress] = useState(userProfile?.address);
   const [phoneNumber, setPhoneNumber] = useState(userProfile?.phoneNumber);
-  const [password, setPassword] = useState("");
+  // const [password, setPassword] = useState("");
 
   const formSubmitHandler = (e) => {
     e.preventDefault();
@@ -28,10 +28,6 @@ const UpdateProfileModel = ({ setUpdateProfile, userProfile }) => {
       address,
       phoneNumber,
     };
-
-    if (password.trim() !== "") {
-      updatedUser.password = password;
-    }
 
     dispatch(updateUserProfile(userProfile?._id, updatedUser));
     setUpdateProfile(false);
@@ -51,31 +47,29 @@ const UpdateProfileModel = ({ setUpdateProfile, userProfile }) => {
         <h1 className="update-profile-h1">Update Profile</h1>
         <input
           type="text"
-          value={username}
-          onChange={(e) => setUsername(e.target.value)}
+          value={country}
+          onChange={(e) => setCountry(e.target.value)}
           className="update-profile-input"
-          placeholder="Username"
         />
-        <textarea
-          value={bio}
-          onChange={(e) => setBio(e.target.value)}
-          rows="2"
-          placeholder="Bio"
-          className="update-profile-textarea"
-        ></textarea>
         <input
           type="text"
-          value={phoneNumber}
-          onChange={(e) => setPhoneNumber(e.target.value)}
+          value={state}
+          onChange={(e) => setState(e.target.value)}
           className="update-profile-input"
         />
         <input
-          type="password"
-          value={password}
-          placeholder="Change password"
-          onChange={(e) => setPassword(e.target.value)}
+          type="text"
+          value={city}
+          onChange={(e) => setCity(e.target.value)}
           className="update-profile-input"
         />
+        <input
+          type="text"
+          value={address}
+          onChange={(e) => setAddress(e.target.value)}
+          className="update-profile-input"
+        />
+
         <button className="btn update-profile-form-btn" type="submit">
           Update
         </button>

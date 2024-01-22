@@ -32,13 +32,6 @@ const NavItems = ({ setToggle }) => {
           </>
         )}
 
-        {/* TODO  if admin    <li onClick={() => setToggle(false)}>
-        <a href="/admin/products">Manage Products</a>
-      </li>
-      <li onClick={() => setToggle(false)}>
-        <a href="/admin/orders">Manage Orders</a>
-      </li> */}
-
         {user?.isAdmin && (
           <li onClick={() => setToggle(false)}>
             <Link to="/admin-dashboard">Admin Dashboard</Link>

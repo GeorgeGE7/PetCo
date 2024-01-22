@@ -10,9 +10,6 @@ const HeaderLeft = () => {
           <MdPets />
         </span>
       </Link>
-      <Link to="/" id="logo-img-link">
-        <img src="/images/logoImage.jpeg" alt="Logo" />
-      </Link>
     </>
   );
 };

@@ -71,6 +71,13 @@
   margin: 3rem auto;
 }
 
+#update-profile-btns{
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-evenly;
+}
+
 .delete-account-btn {
   width: max-content;
   background-color: rgb(241, 80, 88);
@@ -81,4 +88,17 @@
   padding: var(--space-2) var(--space-6);
   cursor: pointer;
   margin-bottom: 3rem;
+}
+
+@media (max-width: 55rem) {
+  #update-profile-btns{
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-evenly;
+  }
+  #update-profile-btns button:nth-child(1){
+    margin-bottom: 0.7rem;
+  }
 }
