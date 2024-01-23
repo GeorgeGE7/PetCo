@@ -1,14 +1,27 @@
+import { useEffect } from "react";
 import { Link, useParams } from "react-router-dom";
-import { posts } from "../../dummyData";
+// import { posts } from "../../dummyData";
+import { useDispatch, useSelector } from "react-redux";
+import { FaStar, FaRegStar } from "react-icons/fa";
 
-import "./postDetails.css";
+import {
+  getSinglePost,
+  togglePostLike,
+} from "../../redux/apiCalls/postsApiCall";
 import AddReview from "../../components/reviews/AddReview";
 import ReviewList from "../../components/reviews/ReviewsList";
 
-const PostDetailsPage = () => {
-  const params = useParams();
+import "./postDetails.css";
 
-  const post = posts.find((p) => p._id == params.id);
+const PostDetailsPage = () => {
+  const dispatch = useDispatch();
+  const { singlePost } = useSelector((state) => state.post);
+  const { user } = useSelector((state) => state.auth);
+  const { id } = useParams();
+
+  useEffect(() => {
+    dispatch(getSinglePost(id));
+  }, [id]);
 
   return (
     <main>
@@ -16,27 +29,45 @@ const PostDetailsPage = () => {
         <div className="post-details-image-wrapper">
           <img
             className="post-details-image"
-            src={post.image}
-            alt={post.title}
+            src={singlePost?.image?.url}
+            alt={singlePost?.title}
           />
           <div>
-            <h1 className="post-detials-title">{post.title}</h1>
+            <h1 className="post-detials-title">{singlePost?.title}</h1>
             <div id="btns-container">
-              <Link className="btn btn-alt" to={`/post/details/${post._id}`}>
+              {user && (
+                <div
+                  style={{ textAlign: "center", marginBottom: "0.7rem" }}
+                  className="btn btn-alt"
+                  to={`/post/details/${singlePost?._id}`}
+                  onClick={() => dispatch(togglePostLike(singlePost?._id))}
+                >
+                  <p>{(singlePost?.likes)?.length}</p>
+                  <FaStar style={{ marginRight: "0.37rem" }} size={17} />
+                  <FaRegStar style={{ marginRight: "0.37rem" }} size={17} />
+                  Add to cart
+                </div>
+              )}
+              <Link
+                className="btn btn-alt"
+                to={`/post/details/${singlePost?._id}`}
+              >
+                <FaStar style={{ marginRight: "0.37rem" }} size={17} />
+                <FaRegStar style={{ marginRight: "0.37rem" }} size={17} />
                 Add to cart
               </Link>
               <Link
-                className="btn btn-alt seconde"
-                to={`/posts/details/${post._id}`}
+                className="btn seconde"
+                to={`/posts/details/${singlePost?._id}`}
               >
-                Add to wishList
+                Buy now
               </Link>
             </div>
           </div>
         </div>
-        <p className="post-details-content">{post.content}</p>
+        <p className="post-details-content">{singlePost?.content}</p>
         <AddReview />
-        <ReviewList />
+        <ReviewList reviews={singlePost?.comments} />
       </section>
     </main>
   );

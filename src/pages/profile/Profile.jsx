@@ -4,19 +4,21 @@ import { useDispatch, useSelector } from "react-redux";
 import { toast } from "react-toastify";
 import swal from "sweetalert";
 import PostList from "../../components/posts/PostList";
-import { posts } from "../../dummyData";
+// import { posts } from "../../dummyData";
 import {
   getUserProfile,
   uploadUserProfilePhoto,
 } from "../../redux/apiCalls/userProfileApiCall";
+import { getUserLikedProducts } from "../../redux/apiCalls/postsApiCall";
 import UpdateProfileModel from "./UpdateProfileModel";
+import UpdateProfileAddressModel from "./UpdateAddressModel";
 
 import "./profile.css";
-import UpdateProfileAddressModel from "./UpdateAddressModel";
 
 const Profile = () => {
   const dispatch = useDispatch();
   const { userProfile } = useSelector((state) => state.userProfile);
+  const { userLikeProducts } = useSelector((state) => state.post);
 
   const [file, setFile] = useState(null);
   const [updateProfile, setUpdateProfile] = useState(false);
@@ -26,6 +28,7 @@ const Profile = () => {
 
   useEffect(() => {
     dispatch(getUserProfile(id));
+    dispatch(getUserLikedProducts());
     window.scrollTo(0, 0);
   }, []);
 
@@ -114,10 +117,18 @@ const Profile = () => {
           </button>
         </div>
       </div>
-      <div className="profile-posts-list">
-        <h2>Your orders</h2>
-        {/* TODO user orderList instead */}
-        <PostList posts={posts} />
+      <div id="orders-wishlist-container">
+        <div className="profile-posts-list">
+          <h2>Wishlist</h2>
+          {/* TODO user orderList instead */}
+          <PostList posts={userLikeProducts} />
+        </div>
+        <hr/>
+        <div className="profile-posts-list">
+          <h2>Orders</h2>
+          {/* TODO user orderList instead */}
+          <PostList posts={userLikeProducts} />
+        </div>
       </div>
       <button onClick={deleteAccountHandler} className="delete-account-btn">
         Delete Your Account

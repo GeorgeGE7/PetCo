@@ -6,6 +6,9 @@
   flex-direction: column;
 }
 
+.form-container img{
+  max-width: 100%;
+}
 .form-container h1 {
   margin-bottom: var(--space-4);
 }
@@ -82,6 +85,11 @@ textarea {
 }
 .create-post-btns button {
   width: 45%;
+}
+
+.optional-label{
+  color: rgba(232, 232, 232, 0.277);
+  margin-left: 0.37rem;
 }
 
 @media (min-width: 55rem) {

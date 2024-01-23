@@ -1,13 +1,21 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
+import { useNavigate } from "react-router-dom";
+import { useDispatch, useSelector } from "react-redux";
 import { toast } from "react-toastify";
+import { RotatingLines } from "react-loader-spinner";
 
 import "./createPost.css";
+import { createPost } from "../../redux/apiCalls/postsApiCall";
 
 const CreatePostPage = () => {
+  const dispatch = useDispatch();
+  const { loading, isPostCreated } = useSelector((state) => state.post);
+
   const [title, setTitle] = useState("");
   const [content, setContent] = useState("");
   const [category, setCategory] = useState("");
-  const [quantity, setQuantity] = useState("");
+  const [meta, setMeta] = useState("");
+  // const [quantity, setQuantity] = useState("");
   const [price, setPrice] = useState("");
   const [file, settFile] = useState(null);
 
@@ -18,7 +26,7 @@ const CreatePostPage = () => {
     if (content.trim() === "") return toast.error("description required");
     if (category.trim() === "") return toast.error("category required");
     if (price <= 0) return toast.error("price required");
-    if (quantity <= 0) return toast.error("Quantity required");
+    // if (quantity <= 0) return toast.error("Quantity required");
     if (!file) return toast.error("Image required");
 
     const formData = new FormData();
@@ -26,11 +34,19 @@ const CreatePostPage = () => {
     formData.append("title", title);
     formData.append("content", content);
     formData.append("category", category);
-    formData.append("quantity", quantity);
+    // formData.append("quantity", quantity);
     formData.append("price", price);
+    formData.append("meta", meta);
 
-    //TODO send dta to server
+    dispatch(createPost(formData));
   };
+
+  const navigate = useNavigate();
+  useEffect(() => {
+    if (isPostCreated) {
+      navigate("/");
+    }
+  }, [isPostCreated, navigate]);
 
   return (
     <main className="form-container">
@@ -80,20 +96,18 @@ const CreatePostPage = () => {
             rows="3"
           ></textarea>
         </div>
-
         <div>
-          <label htmlFor="quantity">Quantity</label>
+          <label htmlFor="meta">
+            Meta Data <span className="optional-label">(Optional)</span>
+          </label>
           <input
-            value={quantity}
-            onChange={(e) => setQuantity(e.target.value)}
-            type="number"
-            id="quantity"
-            name="quantity"
-            min="1"
-            step="1"
+            value={meta}
+            onChange={(e) => setMeta(e.target.value)}
+            type="text"
+            id="meta"
+            name="meta"
           />
         </div>
-
         <div>
           <label htmlFor="price">Price</label>
           <input
@@ -102,18 +116,41 @@ const CreatePostPage = () => {
             type="number"
             id="price"
             name="price"
-            min="0.01"
+            // min="0.01"
             step="0.01"
           />
         </div>
 
         <div className="create-post-btns">
-          <button type="reset" className="btn btn-alt">
-            Reset
-          </button>
-          <button type="submit" className="btn">
-            Create
-          </button>
+          {loading ? (
+            <div
+              style={{
+                display: "flex",
+                flexDirection: "row",
+                fontWeight: "bold",
+                backgroundColor: "gray"
+              }}
+              className="btn"
+            >
+              <span style={{marginRight: "0.5rem"}}>Loading...</span>
+              <RotatingLines
+                strokeColor="white"
+                strokeWidth="5"
+                animationDuration="0.75"
+                width="50"
+                visible={true}
+              />
+            </div>
+          ) : (
+            <button
+              style={{ backgroundColor: loading && "gray" }}
+              disabled={loading ? true : false}
+              type="submit"
+              className="btn"
+            >
+              Create
+            </button>
+          )}
         </div>
       </form>
     </main>
