@@ -20,6 +20,7 @@ import OrdersTable from "./pages/admin/OrdersTabel";
 import ForgotPasswordPage from "./pages/auth/ForgotPasswordPage";
 import ResetForgotPasswordPage from "./pages/auth/ResetForgotPasswordPage";
 import NotFoundPage from "./pages/notFound/NotFoundPage";
+import CartPage from "./pages/cart/CartPage";
 
 function App() {
   const { user } = useSelector((state) => state.auth);
@@ -29,6 +30,7 @@ function App() {
       <Header />
       <Routes>
         <Route path="/" element={<HomePage />} />
+        <Route path="/user/cart" element={<CartPage />} />
         <Route
           path="/login"
           element={!user ? <LoginPage /> : <Navigate to="/" />}

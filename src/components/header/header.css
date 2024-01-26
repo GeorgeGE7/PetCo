@@ -168,6 +168,16 @@ main {
   display: none;
 }
 
+#cart-length{
+  background-color: var(--color-primary-100);
+  padding: 0.2rem 0.5rem;
+  margin-right: 0.47rem;
+  border-radius: 40%;
+  color: var(--color-primary-500-bg);
+  font-weight: bold;
+  text-align: center;
+}
+
 @media (min-width: 70rem) {
   main {
     margin-top: 0;

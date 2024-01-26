@@ -19,7 +19,8 @@ const PostList = ({ title, posts }) => {
   }, [search]);
   return (
     <section id="all-products">
-      <div id="title-and-search-bar"
+      <div
+        id="title-and-search-bar"
         style={{
           display: "flex",
           alignItems: "flex-start",
@@ -36,16 +37,16 @@ const PostList = ({ title, posts }) => {
         />
       </div>
       <input
-          placeholder="Search..."
-          id="search-bar-smallest"
-          onChange={(e) => {
-            setSearch(e.target.value);
-          }}
-        />
+        placeholder="Search..."
+        id="search-bar-smallest"
+        onChange={(e) => {
+          setSearch(e.target.value);
+        }}
+      />
       <ul id="products-grid">
         {posts?.map((post) => (
           <li key={post._id}>
-            <PostItem post={post} />
+            <PostItem title={title} post={post} />
           </li>
         ))}
       </ul>

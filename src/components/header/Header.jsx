@@ -4,8 +4,8 @@ import { getAllPosts } from "../../redux/apiCalls/postsApiCall";
 
 import HeaderLeft from "./HeaderLeft";
 import NavItems from "./NavItems";
-import "./header.css";
 import MobileMenuBtn from "./MobileMenuBtn";
+import "./header.css";
 
 const Header = () => {
   const dispatch = useDispatch();
