@@ -1,12 +1,20 @@
-import React from "react";
+import React, { useEffect } from "react";
+import { useDispatch } from "react-redux";
+
 import swal from "sweetalert";
 
 import AdminSidebar from "./AdminSidebar";
 
 import "./tables.css";
 import { Link } from "react-router-dom";
+import { postActions } from "../../redux/slices/postSlice";
 
 const OrdersTable = () => {
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    dispatch(postActions.hideSearchBar());
+  }, []);
   const deleteTableItemHandler = () => {
     swal({
       title: "Are you sure?",
@@ -40,7 +48,7 @@ const OrdersTable = () => {
             </tr>
           </thead>
           <tbody>
-            {[1,2,3,4,5,6,7].map((item) => (
+            {[1, 2, 3, 4, 5, 6, 7].map((item) => (
               <tr key={item}>
                 <td>{item}</td>
                 <td>
@@ -54,7 +62,10 @@ const OrdersTable = () => {
                     <button className="btn">
                       <Link to={`/posts/details/${item._id}`}>Contact</Link>
                     </button>
-                    <button onClick={deleteTableItemHandler} className="btn btn-alt">
+                    <button
+                      onClick={deleteTableItemHandler}
+                      className="btn btn-alt"
+                    >
                       Status
                     </button>
                   </div>

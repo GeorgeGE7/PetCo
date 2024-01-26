@@ -6,10 +6,11 @@ import HeaderLeft from "./HeaderLeft";
 import NavItems from "./NavItems";
 import MobileMenuBtn from "./MobileMenuBtn";
 import "./header.css";
+import SearchBar from "../searchBar/SerachBar";
 
 const Header = () => {
   const dispatch = useDispatch();
-  const { posts } = useSelector((state) => state.post);
+  const { posts, searchBar } = useSelector((state) => state.post);
   const [search, setSearch] = useState();
 
   useEffect(() => {
@@ -25,13 +26,15 @@ const Header = () => {
     <>
       <header id="main-header">
         <HeaderLeft />
-        <input
-        placeholder="Search..."
-         id="search-bar"
+        {/* <input
+          placeholder="Search..."
+          id="search-bar"
           onChange={(e) => {
             setSearch(e.target.value);
           }}
-        />
+        /> */}
+
+        {searchBar && <SearchBar id={"search-bar"} setSearch={setSearch} />}
         <NavItems setToggle={setToggle} />
         <MobileMenuBtn toggle={toggle} setToggle={setToggle} />
       </header>

@@ -12,11 +12,17 @@ import {
 import { getUserLikedProducts } from "../../redux/apiCalls/postsApiCall";
 import UpdateProfileModel from "./UpdateProfileModel";
 import UpdateProfileAddressModel from "./UpdateAddressModel";
+import { postActions } from "../../redux/slices/postSlice";
 
 import "./profile.css";
 
 const Profile = () => {
   const dispatch = useDispatch();
+
+  useEffect(() => {
+    dispatch(postActions.hideSearchBar());
+  }, []);
+
   const { userProfile } = useSelector((state) => state.userProfile);
   const { userLikeProducts } = useSelector((state) => state.post);
 
@@ -120,12 +126,6 @@ const Profile = () => {
       <div id="orders-wishlist-container">
         <div className="profile-posts-list">
           <h2>Wishlist</h2>
-          {/* TODO user orderList instead */}
-          <PostList posts={userLikeProducts} />
-        </div>
-        <hr/>
-        <div className="profile-posts-list">
-          <h2>Orders</h2>
           {/* TODO user orderList instead */}
           <PostList posts={userLikeProducts} />
         </div>

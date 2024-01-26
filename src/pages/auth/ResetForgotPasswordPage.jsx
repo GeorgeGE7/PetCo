@@ -1,9 +1,18 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
+import { useDispatch } from "react-redux";
+
 import { toast } from "react-toastify";
 
 import "./auth-form.css";
+import { postActions } from "../../redux/slices/postSlice";
 
 const ResetForgotPasswordPage = () => {
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    dispatch(postActions.hideSearchBar());
+  }, []);
+
   const [password, setPassword] = useState("");
 
   const formSubmitHandler = (e) => {

@@ -1,14 +1,22 @@
-import React from "react";
+import React, { useEffect } from "react";
+import { useDispatch } from "react-redux";
+
 import swal from "sweetalert";
 
 import AdminSidebar from "./AdminSidebar";
 
-import {posts} from "../../dummyData"
+import { posts } from "../../dummyData";
 
-import "./tables.css";
 import { Link } from "react-router-dom";
+import { postActions } from "../../redux/slices/postSlice";
+import "./tables.css";
 
 const PostsTable = () => {
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    dispatch(postActions.hideSearchBar());
+  }, []);
   const deleteTableItemHandler = () => {
     swal({
       title: "Are you sure?",
@@ -55,9 +63,14 @@ const PostsTable = () => {
                 <td>
                   <div id="table-btns-group">
                     <button className="btn">
-                      <Link to={`/posts/details/${item._id}`}>View product</Link>
+                      <Link to={`/posts/details/${item._id}`}>
+                        View product
+                      </Link>
                     </button>
-                    <button onClick={deleteTableItemHandler} className="btn btn-alt">
+                    <button
+                      onClick={deleteTableItemHandler}
+                      className="btn btn-alt"
+                    >
                       Delete product
                     </button>
                   </div>

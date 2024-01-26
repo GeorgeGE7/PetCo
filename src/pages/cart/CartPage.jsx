@@ -4,10 +4,15 @@ import { useDispatch, useSelector } from "react-redux";
 
 import PostList from "../../components/posts/PostList";
 import "./cart.css";
+import { postActions } from "../../redux/slices/postSlice";
 
 const CartPage = () => {
   const dispatch = useDispatch();
   const { userCart } = useSelector((state) => state.cart);
+
+  useEffect(() => {
+    dispatch(postActions.hideSearchBar());
+  }, []);
 
   return (
     <main id="cart">

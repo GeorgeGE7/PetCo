@@ -1,9 +1,17 @@
+import { useEffect } from "react";
+import { useDispatch } from "react-redux";
 import { Link } from "react-router-dom";
+
+import { postActions } from "../../redux/slices/postSlice";
 import "./notFound.css";
 
-
-
 const NotFoundPage = () => {
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    dispatch(postActions.hideSearchBar());
+  }, []);
+
   return (
     <main>
       <div id="not-found">

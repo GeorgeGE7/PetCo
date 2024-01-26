@@ -1,8 +1,9 @@
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { Link, useParams } from "react-router-dom";
 // import { posts } from "../../dummyData";
 import { useDispatch, useSelector } from "react-redux";
 import { FaStar, FaRegStar } from "react-icons/fa";
+import { IoCartSharp, IoCartOutline } from "react-icons/io5";
 
 import {
   getSinglePost,
@@ -13,9 +14,15 @@ import ReviewList from "../../components/reviews/ReviewsList";
 
 import "./postDetails.css";
 import { userCartActions } from "../../redux/slices/cartSlice";
+import { postActions } from "../../redux/slices/postSlice";
 
 const PostDetailsPage = () => {
   const dispatch = useDispatch();
+
+  useEffect(() => {
+    dispatch(postActions.hideSearchBar());
+  }, []);
+
   const { singlePost } = useSelector((state) => state.post);
   const { userCart } = useSelector((state) => state.cart);
   const { user } = useSelector((state) => state.auth);
@@ -24,6 +31,17 @@ const PostDetailsPage = () => {
   useEffect(() => {
     dispatch(getSinglePost(id));
   }, [id]);
+
+  const [existInCart, setExistInCart] = useState(false);
+
+  useEffect(() => {
+    const existingItem = userCart.find((i) => i._id === id);
+    if (existingItem) {
+      setExistInCart(true);
+    } else {
+      setExistInCart(false);
+    }
+  }, [userCart, id]);
 
   const handleAddToCart = () => {
     dispatch(userCartActions.handleCartAddOrRemove(singlePost));
@@ -48,22 +66,33 @@ const PostDetailsPage = () => {
                   className="btn btn-alt"
                   onClick={() => dispatch(togglePostLike(singlePost?._id))}
                 >
-                  <p>{singlePost?.likes?.length}</p>
                   {singlePost?.likes?.includes(user?._id) ? (
-                    <FaStar style={{ marginRight: "0.37rem" }} size={17} />
+                    <>
+                      <FaStar style={{ marginRight: "0.37rem" }} size={17} />
+                      {"In the wishlist"}
+                    </>
                   ) : (
-                    <FaRegStar style={{ marginRight: "0.37rem" }} size={17} />
+                    <>
+                      <FaRegStar style={{ marginRight: "0.37rem" }} size={17} />
+                      {"Add to wishlist"}
+                    </>
                   )}
-                  {singlePost?.likes?.includes(user?._id)
-                    ? "In Wishlist"
-                    : "Add to wishlist"}
                 </div>
               )}
-              <button className="btn btn-alt" onClick={handleAddToCart}>
-                <FaStar style={{ marginRight: "0.37rem" }} size={17} />
-                <FaRegStar style={{ marginRight: "0.37rem" }} size={17} />
-                Add to cart
-              </button>
+              <Link onClick={handleAddToCart} className="btn btn-alt">
+                {!existInCart ? (
+                  <>
+                    <IoCartOutline style={{ marginRight: "0.37rem" }} size={17} />
+                    {"Add to cart"}
+                  </>
+                ) : (
+                  <>
+                    <IoCartSharp style={{ marginRight: "0.37rem" }} size={17} />
+                    {"In the cart"}
+                  </>
+                )}
+              </Link>
+
               <Link
                 className="btn seconde"
                 to={`/posts/details/${singlePost?._id}`}

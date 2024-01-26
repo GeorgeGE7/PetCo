@@ -4,6 +4,7 @@ import { getAllPosts } from "../../redux/apiCalls/postsApiCall";
 import PostItem from "./PostItem";
 
 import "./postList.css";
+import SearchBar from "../searchBar/SerachBar";
 
 const PostList = ({ title, posts }) => {
   const dispatch = useDispatch();
@@ -28,21 +29,27 @@ const PostList = ({ title, posts }) => {
         }}
       >
         <h2>{title}</h2>
-        <input
+        {/* <input
           placeholder="Search..."
           id="search-bar-mobile"
           onChange={(e) => {
             setSearch(e.target.value);
           }}
-        />
+        /> */}
+        {title === "All Products" && (
+          <SearchBar id={"search-bar-mobile"} setSearch={setSearch} />
+        )}
       </div>
-      <input
+      {/* <input 
         placeholder="Search..."
         id="search-bar-smallest"
         onChange={(e) => {
           setSearch(e.target.value);
         }}
-      />
+      /> */}
+      {title === "All Products" && (
+        <SearchBar id={"search-bar-smallest"} setSearch={setSearch} />
+      )}
       <ul id="products-grid">
         {posts?.map((post) => (
           <li key={post._id}>

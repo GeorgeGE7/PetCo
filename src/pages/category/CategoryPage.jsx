@@ -5,10 +5,16 @@ import { useDispatch, useSelector } from "react-redux";
 import { getCategoryPosts } from "../../redux/apiCalls/postsApiCall";
 import PostList from "../../components/posts/PostList";
 import "./category.css";
+import { postActions } from "../../redux/slices/postSlice";
 
 const CategoryPage = () => {
-  const { category } = useParams();
   const dispatch = useDispatch();
+
+  useEffect(() => {
+    dispatch(postActions.hideSearchBar());
+  }, []);
+
+  const { category } = useParams();
   const { postsCategory } = useSelector((state) => state.post);
 
   useEffect(() => {

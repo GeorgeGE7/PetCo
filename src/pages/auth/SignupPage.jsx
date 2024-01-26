@@ -14,8 +14,15 @@ import { signupUser } from "../../redux/apiCalls/authApiCall";
 
 import "react-country-state-city/dist/react-country-state-city.css";
 import "./auth-form.css";
+import { postActions } from "../../redux/slices/postSlice";
 
 const SignupPage = () => {
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    dispatch(postActions.hideSearchBar());
+  }, []);
+
   const [ConnectedToInternet, setConnectedToInternet] = useState(false);
 
   const checkCountriesAndInternetConnection = async () => {
@@ -35,7 +42,6 @@ const SignupPage = () => {
     checkCountriesAndInternetConnection();
   }, []);
 
-  const dispatch = useDispatch();
   const { signupMessage } = useSelector((state) => state.auth);
 
   const navigate = useNavigate();
@@ -144,13 +150,15 @@ const SignupPage = () => {
                 }}
                 placeHolder="Select State"
               />
-                <label id="address-label" htmlFor="city">City</label>
-                <input
-                  type="text"
-                  id="city"
-                  value={cityName}
-                  onChange={(e) => setCityName(e.target.value)}
-                />
+              <label id="address-label" htmlFor="city">
+                City
+              </label>
+              <input
+                type="text"
+                id="city"
+                value={cityName}
+                onChange={(e) => setCityName(e.target.value)}
+              />
             </div>
           ) : (
             <>
@@ -187,11 +195,7 @@ const SignupPage = () => {
           )}
           {/*  */}
           <div className="auth-form">
-            <label
-              htmlFor="address"
-            >
-              Address
-            </label>
+            <label htmlFor="address">Address</label>
             <input
               type="text"
               id="address"

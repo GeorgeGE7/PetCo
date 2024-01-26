@@ -6,9 +6,15 @@ import { RotatingLines } from "react-loader-spinner";
 
 import "./createPost.css";
 import { createPost } from "../../redux/apiCalls/postsApiCall";
+import { postActions } from "../../redux/slices/postSlice";
 
 const CreatePostPage = () => {
   const dispatch = useDispatch();
+
+  useEffect(() => {
+    dispatch(postActions.hideSearchBar());
+  }, []);
+
   const { loading, isPostCreated } = useSelector((state) => state.post);
 
   const [title, setTitle] = useState("");
@@ -128,11 +134,11 @@ const CreatePostPage = () => {
                 display: "flex",
                 flexDirection: "row",
                 fontWeight: "bold",
-                backgroundColor: "gray"
+                backgroundColor: "gray",
               }}
               className="btn"
             >
-              <span style={{marginRight: "0.5rem"}}>Loading...</span>
+              <span style={{ marginRight: "0.5rem" }}>Loading...</span>
               <RotatingLines
                 strokeColor="white"
                 strokeWidth="5"

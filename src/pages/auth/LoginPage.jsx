@@ -1,17 +1,22 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { toast } from "react-toastify";
 
 import { useDispatch } from "react-redux";
 import { loginUser } from "../../redux/apiCalls/authApiCall";
+import { postActions } from "../../redux/slices/postSlice";
 
 import "./auth-form.css";
 
 const LoginPage = () => {
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    dispatch(postActions.hideSearchBar());
+  }, []);
+
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-
-  const dispatch = useDispatch();
 
   const formSubmitHandler = (e) => {
     e.preventDefault();

@@ -7,6 +7,7 @@ import "./allProducts.css";
 import "./products.css";
 
 import { categories } from "../../dummyData";
+import { postActions } from "../../redux/slices/postSlice";
 
 const HomePage = () => {
   const dispatch = useDispatch();
@@ -14,6 +15,8 @@ const HomePage = () => {
 
   useEffect(() => {
     dispatch(getAllPosts());
+    dispatch(postActions.setSearchBar());
+
   }, []);
 
   return (

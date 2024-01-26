@@ -1,9 +1,17 @@
-import React from "react";
+import React, { useEffect } from "react";
+import { useDispatch } from "react-redux";
+
 import swal from "sweetalert";
 
 import AdminSidebar from "./AdminSidebar";
+import { postActions } from "../../redux/slices/postSlice";
 
 const ReviewsTable = () => {
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    dispatch(postActions.hideSearchBar());
+  }, []);
   const deleteTableItemHandler = () => {
     swal({
       title: "Are you sure?",

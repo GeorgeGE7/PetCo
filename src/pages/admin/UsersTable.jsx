@@ -1,12 +1,20 @@
-import React from "react";
+import React, { useEffect } from "react";
+import { useDispatch } from "react-redux";
+
 import swal from "sweetalert";
 
 import AdminSidebar from "./AdminSidebar";
 
 import "./tables.css";
 import { Link } from "react-router-dom";
+import { postActions } from "../../redux/slices/postSlice";
 
 const UsersTable = () => {
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    dispatch(postActions.hideSearchBar());
+  }, []);
   const deleteTableItemHandler = () => {
     swal({
       title: "Are you sure?",
@@ -55,7 +63,10 @@ const UsersTable = () => {
                     <button className="btn">
                       <Link to={"/profile/1"}>View user</Link>
                     </button>
-                    <button onClick={deleteTableItemHandler} className="btn btn-alt">
+                    <button
+                      onClick={deleteTableItemHandler}
+                      className="btn btn-alt"
+                    >
                       Delete User
                     </button>
                   </div>

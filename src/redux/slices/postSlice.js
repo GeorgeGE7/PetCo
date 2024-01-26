@@ -10,6 +10,7 @@ const postSlice = createSlice({
     postsCategory: [],
     loading: false,
     isPostCreated: false,
+    searchBar: true,
   },
   reducers: {
     setPosts(state, action) {
@@ -43,6 +44,12 @@ const postSlice = createSlice({
     stopIsPostCreated(state) {
       state.isPostCreated = false;
     },
+    setSearchBar(state){
+      state.searchBar = true
+    },
+    hideSearchBar(state){
+      state.searchBar = false
+    }
   },
 });
 

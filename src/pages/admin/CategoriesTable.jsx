@@ -1,9 +1,16 @@
-import React from "react";
+import React, { useEffect } from "react";
+import { useDispatch } from "react-redux";
 import swal from "sweetalert";
 
 import AdminSidebar from "./AdminSidebar";
+import { postActions } from "../../redux/slices/postSlice";
 
 const CategoriesTable = () => {
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    dispatch(postActions.hideSearchBar());
+  }, []);
   const deleteTableItemHandler = () => {
     swal({
       title: "Are you sure?",
@@ -36,7 +43,7 @@ const CategoriesTable = () => {
             </tr>
           </thead>
           <tbody>
-            {[1,2,3,4,5].map((item) => (
+            {[1, 2, 3, 4, 5].map((item) => (
               <tr key={item}>
                 <td>{item}</td>
                 <td>
@@ -44,7 +51,10 @@ const CategoriesTable = () => {
                 </td>
                 <td>
                   <div id="table-btns-group">
-                    <button onClick={deleteTableItemHandler} className="btn btn-alt">
+                    <button
+                      onClick={deleteTableItemHandler}
+                      className="btn btn-alt"
+                    >
                       Delete Category
                     </button>
                   </div>
