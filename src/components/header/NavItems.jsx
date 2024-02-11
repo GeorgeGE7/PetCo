@@ -10,7 +10,6 @@ const NavItems = ({ setToggle }) => {
   const { userCart } = useSelector((state) => state.cart);
   const dispatch = useDispatch();
 
-
   const logoutHandler = () => {
     setUserDropdown(false);
     dispatch(logoutUser());
@@ -31,7 +30,7 @@ const NavItems = ({ setToggle }) => {
         {user && (
           <>
             <li onClick={() => setToggle(false)}>
-              <Link to="/orders">Orders</Link>
+              <Link to={`/orders/${user?._id}`}>Orders</Link>
             </li>
 
             <li onClick={() => setToggle(false)}>

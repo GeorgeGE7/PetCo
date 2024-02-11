@@ -14,7 +14,7 @@ const userCartSlice = createSlice({
       const existingItem = state.userCart.find((i) => i._id === item._id);
 
       if (existingItem) {
-        const index = state.userCart.findIndex((item) => item.id === item._id);
+        const index = state.userCart.findIndex((i) => i.id === item._id);
         if (index !== -1) {
           state.userCart.splice(index, 1);
         }
@@ -34,6 +34,21 @@ const userCartSlice = createSlice({
 
       // Remove userCart from local storage
       localStorage.removeItem("userCart");
+    },
+    removeItemFromCart: (state, action) => {
+      const item = action.payload;
+
+      const index = state.userCart.findIndex((i) => i._id === item.postId);
+      if (index !== -1) {
+        state.userCart.splice(index, 1);
+      }
+
+      // Save userCart into local storage
+      try {
+        localStorage.setItem("userCart", JSON.stringify(state.userCart));
+      } catch (error) {
+        console.log(`error in removeItemFromCart: ${error}`);
+      }
     },
   },
 });

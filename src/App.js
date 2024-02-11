@@ -21,6 +21,7 @@ import ForgotPasswordPage from "./pages/auth/ForgotPasswordPage";
 import ResetForgotPasswordPage from "./pages/auth/ResetForgotPasswordPage";
 import NotFoundPage from "./pages/notFound/NotFoundPage";
 import CartPage from "./pages/cart/CartPage";
+import OrdersPage from "./pages/orders/OrdersPage";
 
 function App() {
   const { user } = useSelector((state) => state.auth);
@@ -45,6 +46,7 @@ function App() {
           element={<ResetForgotPasswordPage />}
         />
         <Route path="/profile/:id" element={<Profile />} />
+        <Route path="/orders/:id" element={user ? <OrdersPage /> : <Navigate to="/" />} />
         {/* <Route path="/posts" element={<PostsPage />} /> */}
         <Route path="posts">
           {/* TODO create-post on navlinks */}

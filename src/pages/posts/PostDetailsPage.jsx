@@ -11,10 +11,12 @@ import {
 } from "../../redux/apiCalls/postsApiCall";
 import AddReview from "../../components/reviews/AddReview";
 import ReviewList from "../../components/reviews/ReviewsList";
-
-import "./postDetails.css";
+import { createNewOrder } from "../../redux/apiCalls/ordersApiCall";
 import { userCartActions } from "../../redux/slices/cartSlice";
 import { postActions } from "../../redux/slices/postSlice";
+import { RotatingLines } from "react-loader-spinner";
+
+import "./postDetails.css";
 
 const PostDetailsPage = () => {
   const dispatch = useDispatch();
@@ -26,6 +28,8 @@ const PostDetailsPage = () => {
   const { singlePost } = useSelector((state) => state.post);
   const { userCart } = useSelector((state) => state.cart);
   const { user } = useSelector((state) => state.auth);
+  const { loading, isOrderCreated } = useSelector((state) => state.order);
+
   const { id } = useParams();
 
   useEffect(() => {
@@ -46,6 +50,10 @@ const PostDetailsPage = () => {
   const handleAddToCart = () => {
     dispatch(userCartActions.handleCartAddOrRemove(singlePost));
     // console.log(userCart);
+  };
+
+  const createOrder = () => {
+    dispatch(createNewOrder({ postId: id }));
   };
 
   return (
@@ -82,7 +90,10 @@ const PostDetailsPage = () => {
               <Link onClick={handleAddToCart} className="btn btn-alt">
                 {!existInCart ? (
                   <>
-                    <IoCartOutline style={{ marginRight: "0.37rem" }} size={17} />
+                    <IoCartOutline
+                      style={{ marginRight: "0.37rem" }}
+                      size={17}
+                    />
                     {"Add to cart"}
                   </>
                 ) : (
@@ -92,13 +103,37 @@ const PostDetailsPage = () => {
                   </>
                 )}
               </Link>
-
-              <Link
-                className="btn seconde"
-                to={`/posts/details/${singlePost?._id}`}
-              >
-                Buy now
-              </Link>
+              {loading ? (
+                <div
+                  style={{
+                    display: "flex",
+                    flexDirection: "row",
+                    fontWeight: "bold",
+                    backgroundColor: "gray",
+                    alignItems: "center",
+                    justifyContent: "center",
+                    marginTop: "1rem",
+                  }}
+                  className="btn"
+                >
+                  <span style={{ marginRight: "0.5rem" }}>Loading...</span>
+                  <RotatingLines
+                    strokeColor="white"
+                    strokeWidth="5"
+                    animationDuration="0.75"
+                    width="20"
+                    visible={true}
+                  />
+                </div>
+              ) : (
+                <button
+                  onClick={createOrder}
+                  className="btn seconde"
+                  to={`/posts/details/${singlePost?._id}`}
+                >
+                  Buy now
+                </button>
+              )}
             </div>
           </div>
         </div>

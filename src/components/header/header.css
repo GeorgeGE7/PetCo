@@ -16,6 +16,7 @@ main {
   align-items: center;
   border-bottom: 1px solid var(--color-primary-500);
   background-color: var(--color-gray-500);
+  z-index: 999;
 }
 
 /* added earlier */
@@ -185,6 +186,7 @@ main {
 
   #main-header {
     position: static;
+    z-index: 9;
   }
   #logo-text {
     padding: 0 1rem;
