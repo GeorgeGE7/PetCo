@@ -69,3 +69,25 @@ export function updateUserProfile(userId, updatedProfile) {
     }
   };
 }
+
+export function deleteUserProfile(userId) {
+  return async (dispatch, getState) => {
+    try {
+      dispatch(userProfileActions.setLoading());
+      const response = await BASE_URL.delete(`/api/users/profile/${userId}`, {
+        headers: {
+          Authorization: "Bearer " + getState().auth.user.token,
+        },
+      });
+      dispatch(userProfileActions.setIsProfileDeleted());
+      toast.success(response.data.message);
+      setTimeout(() =>
+        dispatch(userProfileActions.stopIsProfileDeleted(), 1700)
+      );
+    } catch (error) {
+      toast.error(error.response.data.message);
+      dispatch(userProfileActions.stopLoading());
+      console.log(`error in updateUserProfile: ${error}`);
+    }
+  };
+}

@@ -98,8 +98,7 @@ const PostItem = ({ title, post }) => {
           alt={title === "Your Orders" ? post?.postId?.title : post?.title}
         />
         <div className="product-item-content">
-          <h2>
-            {" "}
+          <h2 style={{marginBottom: "0.25rem"}}>
             {title === "Your Orders" ? post?.postId?.title : post?.title}
           </h2>
           <Link
@@ -110,7 +109,7 @@ const PostItem = ({ title, post }) => {
             {post?.category}
           </Link>
 
-          <p id="post-summery">
+          <p id="post-summery" style={{height:"2.4rem", marginTop: "0.25rem"}}>
             {title === "Your Orders" ? post?.postId?.content : post?.content}
           </p>
 

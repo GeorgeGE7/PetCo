@@ -4,6 +4,10 @@
   align-items: center;
   justify-content: center;
 }
+#delete-profile-loader-container{
+  display: flex;
+  justify-content: center;
+}
 
 .profile-header {
   width: 100%;
@@ -12,7 +16,7 @@
   display: flex;
   flex-direction: column;
   align-items: center;
-  justify-content: space-between;
+  justify-content: space-evenly;
   background-color: var(--color-gray-300);
   border-radius: var(--space-6);
 }
@@ -49,6 +53,8 @@
   font-size: 1.2rem;
   width: max-content;
   margin: var(--space-2) auto;
+  font-weight: bold;
+  text-decoration: none;
 }
 .upload-profile-photo-input {
   display: none;
@@ -64,7 +70,8 @@
 }
 
 .update-profile-btn {
-  font-size: 1.2rem;
+  font-size: 1.15rem;
+  font-weight: bold;
 }
 
 .profile-posts-list {
@@ -106,6 +113,14 @@
 @media (max-width: 55rem) {
   #orders-wishlist-container {
     flex-direction: column;
+  }
+  #delete-profile-loader-container {
+    /* width: 100%; */
+    margin: 6rem auto;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    
   }
 
   #orders-wishlist-container hr {

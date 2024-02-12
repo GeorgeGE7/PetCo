@@ -22,7 +22,7 @@ const CategoryPage = () => {
   }, [category]);
 
   return (
-    <main>
+    <main style={{ display: "grid" }}>
       <section className="category">
         {postsCategory?.length === 0 ? (
           <>

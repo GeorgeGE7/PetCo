@@ -44,7 +44,9 @@ const CreatePostPage = () => {
     formData.append("category", category);
     // formData.append("quantity", quantity);
     formData.append("price", price);
-    formData.append("meta", meta);
+    if (meta) {
+      formData.append("meta", meta);
+    }
 
     dispatch(createPost(formData));
   };
