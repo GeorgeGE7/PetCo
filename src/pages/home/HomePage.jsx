@@ -8,15 +8,17 @@ import "./products.css";
 
 import { categories } from "../../dummyData";
 import { postActions } from "../../redux/slices/postSlice";
+import { getAllCategories } from "../../redux/apiCalls/categoryApiCall";
 
 const HomePage = () => {
   const dispatch = useDispatch();
   const { posts } = useSelector((state) => state.post);
+  const { categories } = useSelector((state) => state.category);
 
   useEffect(() => {
-    dispatch(getAllPosts());
     dispatch(postActions.setSearchBar());
-
+    dispatch(getAllPosts());
+    dispatch(getAllCategories());
   }, []);
 
   return (
@@ -24,13 +26,13 @@ const HomePage = () => {
       <section id="categories-sidebar">
         <h2>Categories</h2>
         <ul>
-          {categories.map((category) => (
+          {categories?.map((category) => (
             <Link
               key={category?._id}
               className="btn-alt categories-sidebar-link"
               to={`/posts/categories/${category?.title}`}
             >
-              {category.title}
+              {category?.title}
             </Link>
           ))}
         </ul>

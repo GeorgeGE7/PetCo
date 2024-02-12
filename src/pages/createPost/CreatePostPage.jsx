@@ -7,6 +7,7 @@ import { RotatingLines } from "react-loader-spinner";
 import "./createPost.css";
 import { createPost } from "../../redux/apiCalls/postsApiCall";
 import { postActions } from "../../redux/slices/postSlice";
+import { getAllCategories } from "../../redux/apiCalls/categoryApiCall";
 
 const CreatePostPage = () => {
   const dispatch = useDispatch();
@@ -16,6 +17,7 @@ const CreatePostPage = () => {
   }, []);
 
   const { loading, isPostCreated } = useSelector((state) => state.post);
+  const { categories } = useSelector((state) => state.category);
 
   const [title, setTitle] = useState("");
   const [content, setContent] = useState("");
@@ -54,6 +56,10 @@ const CreatePostPage = () => {
     }
   }, [isPostCreated, navigate]);
 
+  useEffect(() => {
+    dispatch(getAllCategories());
+  }, []);
+
   return (
     <main className="form-container">
       <h1>Add new Product</h1>
@@ -88,8 +94,11 @@ const CreatePostPage = () => {
           <option disabled value="">
             Select a category
           </option>
-          <option value="music">Food</option>
-          <option value="cars">cars</option>
+          {categories?.map((category) => (
+            <option key={category?._id} value={category?.title}>
+              {category?.title}
+            </option>
+          ))}
         </select>
 
         <div>

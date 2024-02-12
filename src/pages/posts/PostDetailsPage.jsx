@@ -67,6 +67,7 @@ const PostDetailsPage = () => {
           />
           <div>
             <h1 className="post-detials-title">{singlePost?.title}</h1>
+            <h3 className="post-detials-title" style={{margin: "-0.5rem 0 1.5rem 0", fontSize: "1.1rem"}}>Price: <span style={{fontWeight: "600", fontSize: "1.3rem"}}>{singlePost?.price}</span></h3>
             <div id="btns-container">
               {user && (
                 <div
@@ -104,7 +105,7 @@ const PostDetailsPage = () => {
                 )}
               </Link>
               {loading ? (
-                <div
+                <button
                   style={{
                     display: "flex",
                     flexDirection: "row",
@@ -112,9 +113,9 @@ const PostDetailsPage = () => {
                     backgroundColor: "gray",
                     alignItems: "center",
                     justifyContent: "center",
-                    marginTop: "1rem",
+                    // marginTop: "1rem",
                   }}
-                  className="btn"
+                  className="btn seconde"
                 >
                   <span style={{ marginRight: "0.5rem" }}>Loading...</span>
                   <RotatingLines
@@ -124,7 +125,7 @@ const PostDetailsPage = () => {
                     width="20"
                     visible={true}
                   />
-                </div>
+                </button>
               ) : (
                 <button
                   onClick={createOrder}
@@ -137,7 +138,9 @@ const PostDetailsPage = () => {
             </div>
           </div>
         </div>
-        <p className="post-details-content">{singlePost?.content}</p>
+        <p style={{ whiteSpace: "pre-wrap" }} className="post-details-content">
+          {singlePost?.content}
+        </p>
         <AddReview />
         <ReviewList reviews={singlePost?.comments} />
       </section>
