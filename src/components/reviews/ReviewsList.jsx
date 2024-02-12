@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { useSelector } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
 import swal from "sweetalert";
 import Moment from "react-moment";
 import { HiPencilAlt } from "react-icons/hi";
@@ -7,20 +7,29 @@ import { AiFillDelete } from "react-icons/ai";
 import UpdateReview from "./UpdateReview";
 
 import "./reviewsList.css";
+import { deleteReview } from "../../redux/apiCalls/reviewApiCall";
 const ReviewList = ({ reviews }) => {
+  const dispatch = useDispatch();
   const { singlePost } = useSelector((state) => state.post);
   const { user } = useSelector((state) => state.auth);
 
   const [updateReview, setUpdateReview] = useState(false);
-  const deleteReviewHandler = () => {
+  const [reviewToBeUpdated, setReviewToBeUpdated] = useState();
+
+  const updateReviewHandler = (review) => {
+    setReviewToBeUpdated(review);
+    setUpdateReview(true);
+  };
+  const deleteReviewHandler = (reviewId) => {
     swal({
       title: "Are you sure?",
       text: "Once deleted, you will not be able to recover this!",
       icon: "warning",
       buttons: true,
       dangerMode: true,
-    }).then((willDelete) => {
-      if (willDelete) {
+    }).then((isOk) => {
+      if (isOk) {
+        dispatch(deleteReview(reviewId));
         swal("Review has been deleted!", {
           icon: "success",
         });
@@ -47,17 +56,22 @@ const ReviewList = ({ reviews }) => {
           <p className="review-item-text">{review?.text}</p>
           {user?._id == review?.user && (
             <div className="review-item-icons-wrapper">
-              <div onClick={() => setUpdateReview(true)}>
+              <div onClick={() => updateReviewHandler(review)}>
                 <HiPencilAlt size={22} />
               </div>
-              <div onClick={deleteReviewHandler}>
+              <div onClick={() => deleteReviewHandler(review?._id)}>
                 <AiFillDelete size={22} />
               </div>
             </div>
           )}
         </div>
       ))}
-      {updateReview && <UpdateReview setUpdateReview={setUpdateReview} />}
+      {updateReview && (
+        <UpdateReview
+          reviewToBeUpdated={reviewToBeUpdated}
+          setUpdateReview={setUpdateReview}
+        />
+      )}
     </div>
   );
 };

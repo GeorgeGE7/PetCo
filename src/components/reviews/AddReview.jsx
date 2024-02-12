@@ -1,17 +1,21 @@
 import { useState } from "react";
 import { toast } from "react-toastify";
-import "./addReview.css";
+import { useDispatch } from "react-redux";
 
-const AddReview = () => {
+import "./addReview.css";
+import { createReview } from "../../redux/apiCalls/reviewApiCall";
+
+const AddReview = ({ postId }) => {
   const [review, setReview] = useState("");
+  const dispatch = useDispatch();
 
   const formSubmitHandler = (e) => {
     e.preventDefault();
     if (review.trim() == "") {
       return toast.error("Can not post an empty review");
     }
-    console.log(review);
     setReview("");
+    dispatch(createReview({ postId, text: review }));
   };
 
   return (

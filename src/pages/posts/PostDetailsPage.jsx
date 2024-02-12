@@ -67,7 +67,15 @@ const PostDetailsPage = () => {
           />
           <div>
             <h1 className="post-detials-title">{singlePost?.title}</h1>
-            <h3 className="post-detials-title" style={{margin: "-0.5rem 0 1.5rem 0", fontSize: "1.1rem"}}>Price: <span style={{fontWeight: "600", fontSize: "1.3rem"}}>{singlePost?.price}</span></h3>
+            <h3
+              className="post-detials-title"
+              style={{ margin: "-0.5rem 0 1.5rem 0", fontSize: "1.1rem" }}
+            >
+              Price:{" "}
+              <span style={{ fontWeight: "600", fontSize: "1.3rem" }}>
+                {singlePost?.price}
+              </span>
+            </h3>
             <div id="btns-container">
               {user && (
                 <div
@@ -141,7 +149,7 @@ const PostDetailsPage = () => {
         <p style={{ whiteSpace: "pre-wrap" }} className="post-details-content">
           {singlePost?.content}
         </p>
-        <AddReview />
+        {user && <AddReview postId={singlePost?._id} />}
         <ReviewList reviews={singlePost?.comments} />
       </section>
     </main>

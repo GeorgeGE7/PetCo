@@ -1,14 +1,19 @@
 import { useState } from "react";
+import { useDispatch } from "react-redux";
 import { toast } from "react-toastify";
 
 import "./updateReview.css";
+import { updateReview } from "../../redux/apiCalls/reviewApiCall";
 
-const UpdateReview = ({ setUpdateReview }) => {
-  const [review, setReview] = useState("This is comment");
+const UpdateReview = ({ reviewToBeUpdated, setUpdateReview }) => {
+  const dispatch = useDispatch();
+  const [review, setReview] = useState(reviewToBeUpdated?.text);
 
   const formSubmitHandler = (e) => {
-    e.preventDefault()
-    if (review.trim() === "") return toast.error("Can not be empty");
+    e.preventDefault();
+    if (review.trim() == "") return toast.error("Can not be empty");
+    dispatch(updateReview(reviewToBeUpdated?._id, { text: review }));
+    setUpdateReview(false);
   };
 
   return (

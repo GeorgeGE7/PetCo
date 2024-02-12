@@ -44,12 +44,29 @@ const postSlice = createSlice({
     stopIsPostCreated(state) {
       state.isPostCreated = false;
     },
-    setSearchBar(state){
-      state.searchBar = true
+    addPostReview(state, action) {
+      state.singlePost.comments.push(action.payload);
     },
-    hideSearchBar(state){
-      state.searchBar = false
-    }
+    updatePosteReview(state, action) {
+      state.singlePost.comments = state.singlePost.comments.map((comment) =>
+        comment._id === action.payload._id ? action.payload : comment
+      );
+    },
+    deletePosteReview(state, action) {
+      const commentToBeDeleted = state.singlePost.comments.find(
+        (comment) => comment._id === action.payload
+      );
+      const CommentToBeDeletedIndex =
+        state.singlePost.comments.indexOf(commentToBeDeleted);
+
+      state.singlePost.comments.splice(CommentToBeDeletedIndex, 1);
+    },
+    setSearchBar(state) {
+      state.searchBar = true;
+    },
+    hideSearchBar(state) {
+      state.searchBar = false;
+    },
   },
 });
 
