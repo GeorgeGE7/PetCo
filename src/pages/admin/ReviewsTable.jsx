@@ -1,18 +1,22 @@
 import React, { useEffect } from "react";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 
 import swal from "sweetalert";
 
 import AdminSidebar from "./AdminSidebar";
 import { postActions } from "../../redux/slices/postSlice";
+import { deleteReview, getAllReviews } from "../../redux/apiCalls/reviewApiCall";
+import { deleteUserProfile } from "../../redux/apiCalls/userProfileApiCall";
 
 const ReviewsTable = () => {
   const dispatch = useDispatch();
+  const { reviews } = useSelector((state) => state.review);
 
   useEffect(() => {
     dispatch(postActions.hideSearchBar());
-  }, []);
-  const deleteTableItemHandler = () => {
+    dispatch(getAllReviews());
+  }, [reviews]);
+  const deleteTableItemHandler = (reviewId) => {
     swal({
       title: "Are you sure?",
       text: "Once deleted, you will not be able to recover this!",
@@ -21,6 +25,7 @@ const ReviewsTable = () => {
       dangerMode: true,
     }).then((willDelete) => {
       if (willDelete) {
+        dispatch(deleteReview(reviewId));
         swal("Review has been deleted!", {
           icon: "success",
         });
@@ -45,20 +50,23 @@ const ReviewsTable = () => {
             </tr>
           </thead>
           <tbody>
-            {[1,2,3,4,5,6].map((item) => (
-              <tr key={item}>
-                <td>{item}</td>
+            {reviews?.map((item, index) => (
+              <tr key={item._id}>
+                <td>{index + 1}</td>
                 <td>
                   <div id="username-and-image">
-                    <img src="/images/Investors 1.png" alt="user" />
-                    <span>Ay asm ay asm</span>
+                    <img src={item?.user?.profilePhoto?.url} alt="user" />
+                    <span>{item?.user?.username}</span>
                   </div>
                 </td>
-                <td>d el mfrood Review</td>
+                <td>{item?.text}</td>
                 <td>
                   <div id="table-btns-group">
-                    <button onClick={deleteTableItemHandler} className="btn btn-alt">
-                      Delete Review
+                    <button
+                      onClick={() => deleteTableItemHandler(item?._id)}
+                      className="btn btn-alt"
+                    >
+                      Delete
                     </button>
                   </div>
                 </td>

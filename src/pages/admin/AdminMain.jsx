@@ -1,23 +1,30 @@
 import { useEffect } from "react";
 import { Link } from "react-router-dom";
-import {useDispatch, useSelector} from "react-redux"
+import { useDispatch, useSelector } from "react-redux";
 
 import { getAllCategories } from "../../redux/apiCalls/categoryApiCall";
-import { getUsersCount, getUsersProfile } from "../../redux/apiCalls/userProfileApiCall";
+import {
+  getUsersCount,
+  getUsersProfile,
+} from "../../redux/apiCalls/userProfileApiCall";
 import AddCategoryForm from "./AddCategoryForm";
 import { getPostsCount } from "../../redux/apiCalls/postsApiCall";
+import { getAllReviews } from "../../redux/apiCalls/reviewApiCall";
 
 const AdminMain = () => {
-  const dispatch = useDispatch()
-  const {categories} = useSelector(state => state.category)
-  const {usersCount} = useSelector(state => state.userProfile)
-  const {postsCount} = useSelector(state => state.post)
-  useEffect(()=>{
-    dispatch(getAllCategories())
-    dispatch(getUsersCount())
-    dispatch(getUsersProfile())
-    dispatch(getPostsCount())
-  },[])
+  const dispatch = useDispatch();
+  const { categories } = useSelector((state) => state.category);
+  const { usersCount } = useSelector((state) => state.userProfile);
+  const { postsCount } = useSelector((state) => state.post);
+  const { reviews } = useSelector((state) => state.review);
+
+  useEffect(() => {
+    dispatch(getAllCategories());
+    dispatch(getUsersCount());
+    dispatch(getUsersProfile());
+    dispatch(getPostsCount());
+    dispatch(getAllReviews());
+  }, []);
 
   return (
     <div className="admin-main">
@@ -57,7 +64,7 @@ const AdminMain = () => {
         {/*  */}
         <div className="admin-main-card">
           <h5 className="admin-card-title">Reviews</h5>
-          <div className="admin-card-count">120</div>
+          <div className="admin-card-count">{reviews?.length}</div>
           <div className="admin-card-links-wrapper">
             <Link className="btn btn-alt" to="/admin-dashboard/reviews-table">
               See all reviews

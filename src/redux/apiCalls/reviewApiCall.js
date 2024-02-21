@@ -1,5 +1,6 @@
 import { toast } from "react-toastify";
 import { postActions } from "../slices/postSlice";
+import { reviewActions } from "../slices/reviewSlice";
 import BASE_URL from "../../utils/request";
 
 export function createReview(review) {
@@ -46,7 +47,24 @@ export function deleteReview(reviewId) {
           Authorization: "Bearer " + getState().auth.user.token,
         },
       });
+      dispatch(reviewActions.deleteReview(reviewId));
       dispatch(postActions.deletePosteReview(reviewId));
+    } catch (error) {
+      toast.error(error.response?.data.message);
+      console.log(`error in deleteReview: ${error}`);
+    }
+  };
+}
+
+export function getAllReviews() {
+  return async (dispatch, getState) => {
+    try {
+      const response = await BASE_URL.get(`/api/comments/`, {
+        headers: {
+          Authorization: "Bearer " + getState().auth.user.token,
+        },
+      });
+      dispatch(reviewActions.setReviews(response.data));
     } catch (error) {
       toast.error(error.response?.data.message);
       console.log(`error in deleteReview: ${error}`);
