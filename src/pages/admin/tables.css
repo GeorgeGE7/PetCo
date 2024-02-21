@@ -42,6 +42,7 @@ tr:hover{
 #username-and-image{
   display: flex;
   align-items: center;
+  justify-content: space-evenly;
 }
 
 #username-and-image img {
@@ -76,6 +77,9 @@ color: var(--color-gray-600);
     align-items: center;
   }
   #table-btns-group button:first-child{
+    margin-bottom: var(--space-2);
+  }
+  #table-btns-group #extra{
     margin-bottom: var(--space-2);
   }
   th, td{

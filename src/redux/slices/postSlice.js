@@ -61,6 +61,11 @@ const postSlice = createSlice({
 
       state.singlePost.comments.splice(CommentToBeDeletedIndex, 1);
     },
+    deletePost(state, action) {
+      state.posts = state.posts.filter(
+        (post) => post._id !== action.payload
+      );
+    },
     setSearchBar(state) {
       state.searchBar = true;
     },

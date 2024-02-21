@@ -111,10 +111,26 @@ export function getPostsCount() {
           Authorization: "Bearer " + getState().auth.user.token,
         },
       });
-      dispatch(postActions.setPostsCount());
+      dispatch(postActions.setPostsCount(response.data));
     } catch (error) {
       toast.error(error.response.data.message);
       console.log(`error in getPostsCount: ${error}`);
+    }
+  };
+}
+export function deletePost(id) {
+  return async (dispatch, getState) => {
+    try {
+      const response = await BASE_URL.delete(`/api/posts/${id}`, {
+        headers: {
+          Authorization: "Bearer " + getState().auth.user.token,
+        },
+      });
+      dispatch(postActions.deletePost(response.data.postId));
+      toast.success(response.data.message);
+    } catch (error) {
+      toast.error(error.response.data.message);
+      console.log(`error in deletePost: ${error}`);
     }
   };
 }

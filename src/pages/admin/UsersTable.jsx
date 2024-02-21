@@ -72,14 +72,14 @@ const UsersTable = () => {
                 <td>
                   <div id="table-btns-group">
                     <button className="btn">
-                      <Link to={`/profile/${item?._id}`}>View user</Link>
+                      <Link to={`/profile/${item?._id}`}>View</Link>
                     </button>
-                    <button
+                    {!item?.isAdmin && <button
                       onClick={() => deleteTableItemHandler(item?._id)}
                       className="btn btn-alt"
                     >
-                      Delete User
-                    </button>
+                      Delete
+                    </button>}
                   </div>
                 </td>
               </tr>
