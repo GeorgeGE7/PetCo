@@ -13,3 +13,36 @@ export function getAllCategories() {
     }
   };
 }
+export function createCategory(newCategory) {
+  return async (dispatch, getState) => {
+    try {
+      const response = await BASE_URL.post("/api/categories", newCategory, {
+        headers: {
+          Authorization: "Bearer " + getState().auth.user.token,
+        },
+      });
+      dispatch(categoryActions.addNewCategory(response.data));
+      toast.success("Category created successfully");
+    } catch (error) {
+      toast.error(error.response.data.message);
+      console.log(`error in createCategory: ${error}`);
+    }
+  };
+}
+
+export function deleteCategory(id) {
+  return async (dispatch, getState) => {
+    try {
+      const response = await BASE_URL.delete(`/api/categories/${id}`, {
+        headers: {
+          Authorization: "Bearer " + getState().auth.user.token,
+        },
+      });
+      dispatch(categoryActions.deleteACategory(response.categoryId));
+      toast.success(response.data?.message);
+    } catch (error) {
+      toast.error(error.response.data.message);
+      console.log(`error in deleteCategory: ${error}`);
+    }
+  };
+}

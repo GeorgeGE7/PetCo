@@ -1,17 +1,21 @@
 import React, { useEffect } from "react";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import swal from "sweetalert";
 
 import AdminSidebar from "./AdminSidebar";
 import { postActions } from "../../redux/slices/postSlice";
+import { deleteCategory, getAllCategories } from "../../redux/apiCalls/categoryApiCall";
+import { Link } from "react-router-dom";
 
 const CategoriesTable = () => {
   const dispatch = useDispatch();
+  const { categories } = useSelector((state) => state.category);
 
   useEffect(() => {
     dispatch(postActions.hideSearchBar());
-  }, []);
-  const deleteTableItemHandler = () => {
+    dispatch(getAllCategories());
+  }, [categories]);
+  const deleteTableItemHandler = (cateId) => {
     swal({
       title: "Are you sure?",
       text: "Once deleted, you will not be able to recover this!",
@@ -20,9 +24,10 @@ const CategoriesTable = () => {
       dangerMode: true,
     }).then((willDelete) => {
       if (willDelete) {
-        swal("Review has been deleted!", {
-          icon: "success",
-        });
+        dispatch(deleteCategory(cateId))
+        // swal("Category has been deleted!", {
+        //   icon: "success",
+        // });
       } else {
         swal("No changes happened");
       }
@@ -43,16 +48,21 @@ const CategoriesTable = () => {
             </tr>
           </thead>
           <tbody>
-            {[1, 2, 3, 4, 5].map((item) => (
-              <tr key={item}>
-                <td>{item}</td>
+            {categories?.map((item, index) => (
+              <tr key={item._id}>
+                <td>{index + 1}</td>
                 <td>
-                  <b>Dogs</b>
+                  <Link
+                    to={`/posts/categories/${item?.title}`}
+                    style={{ color: "unset" }}
+                  >
+                    <b>{item?.title}</b>
+                  </Link>
                 </td>
                 <td>
                   <div id="table-btns-group">
                     <button
-                      onClick={deleteTableItemHandler}
+                      onClick={() => deleteTableItemHandler(item?._id)}
                       className="btn btn-alt"
                     >
                       Delete Category

@@ -73,7 +73,7 @@ export function getUserLikedProducts() {
         },
       });
       dispatch(postActions.setUserLikedProducts(response.data));
-      console.log(response.data);
+      // console.log(response.data);
     } catch (error) {
       toast.error(error.response.data.message);
       console.log(`error in getUserLikedProducts: ${error}`);
