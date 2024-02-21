@@ -64,10 +64,10 @@ export function getCategoryPosts(category) {
   };
 }
 
-export function getUserLikedProducts() {
+export function getUserLikedProducts(id) {
   return async (dispatch, getState) => {
     try {
-      const response = await BASE_URL.get(`/api/posts/user/likes`, {
+      const response = await BASE_URL.get(`/api/posts/user/likes/${id}`, {
         headers: {
           Authorization: "Bearer " + getState().auth.user.token,
         },
@@ -99,6 +99,22 @@ export function createPost(post) {
       toast.error(error.response.data.message);
       dispatch(postActions.stopLoading());
       console.log(`error in createPost: ${error}`);
+    }
+  };
+}
+
+export function getPostsCount() {
+  return async (dispatch, getState) => {
+    try {
+      const response = await BASE_URL.get(`/api/posts/count`, {
+        headers: {
+          Authorization: "Bearer " + getState().auth.user.token,
+        },
+      });
+      dispatch(postActions.setPostsCount());
+    } catch (error) {
+      toast.error(error.response.data.message);
+      console.log(`error in getPostsCount: ${error}`);
     }
   };
 }

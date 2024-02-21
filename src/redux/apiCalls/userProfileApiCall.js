@@ -91,3 +91,33 @@ export function deleteUserProfile(userId) {
     }
   };
 }
+export function getUsersCount() {
+  return async (dispatch, getState) => {
+    try {
+      const response = await BASE_URL.get(`/api/users/count/`, {
+        headers: {
+          Authorization: "Bearer " + getState().auth.user.token,
+        },
+      });
+      dispatch(userProfileActions.setUsersCount(response.data));
+    } catch (error) {
+      toast.error(error.response.data.message);
+      console.log(`error in getUsersCount: ${error}`);
+    }
+  };
+}
+export function getUsersProfile() {
+  return async (dispatch, getState) => {
+    try {
+      const response = await BASE_URL.get(`/api/users/profile/`, {
+        headers: {
+          Authorization: "Bearer " + getState().auth.user.token,
+        },
+      });
+      dispatch(userProfileActions.setUsersProfile(response.data));
+    } catch (error) {
+      toast.error(error.response.data.message);
+      console.log(`error in getUsersProfile: ${error}`);
+    }
+  };
+}

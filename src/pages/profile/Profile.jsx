@@ -43,7 +43,7 @@ const Profile = () => {
 
   useEffect(() => {
     dispatch(getUserProfile(id));
-    dispatch(getUserLikedProducts());
+    dispatch(getUserLikedProducts(id));
     window.scrollTo(0, 0);
   }, []);
 
