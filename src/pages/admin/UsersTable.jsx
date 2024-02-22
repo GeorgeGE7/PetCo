@@ -35,9 +35,9 @@ const UsersTable = () => {
     }).then((willDelete) => {
       if (willDelete) {
         dispatch(deleteUserProfile(userId));
-        swal("User has been deleted!", {
-          icon: "success",
-        });
+        // swal("User has been deleted!", {
+        //   icon: "success",
+        // });
       } else {
         swal("No changes happened");
       }

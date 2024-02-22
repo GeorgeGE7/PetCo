@@ -7,6 +7,7 @@ const authSlice = createSlice({
       ? JSON.parse(localStorage.getItem("userData"))
       : null,
     signupMessage: null,
+    isEmailVerified: false,
   },
   reducers: {
     login(state, action) {
@@ -19,6 +20,10 @@ const authSlice = createSlice({
     },
     signup(state, action) {
       state.signupMessage = action.payload;
+    },
+    setIsEmailVerified(state) {
+      state.isEmailVerified = true;
+      state.signupMessage = null;
     },
     setUserProfilePhoto(state, action) {
       state.user.profilePhoto = action.payload;
