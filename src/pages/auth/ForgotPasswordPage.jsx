@@ -1,19 +1,22 @@
 import { useState } from "react";
+import { useDispatch } from "react-redux";
 import { toast } from "react-toastify";
 
 import "./auth-form.css";
+import { requestResetForgotPassword } from "../../redux/apiCalls/passwordApicall";
 
 const ForgotPasswordPage = () => {
+  const dispatch = useDispatch();
   const [email, setEmail] = useState("");
 
   const formSubmitHandler = (e) => {
     e.preventDefault();
 
-    if (email.trim() == "") {
+    if (email.trim() == "" || !email) {
       return toast.error("Email is required");
     }
 
-    console.log({ email });
+    dispatch(requestResetForgotPassword(email));
   };
 
   return (

@@ -47,7 +47,7 @@ function App() {
         />
         <Route path="/forgot-password" element={<ForgotPasswordPage />} />
         <Route
-          path="/reset-forgot-password"
+          path="/reset-forgot-password/:userId/:token"
           element={<ResetForgotPasswordPage />}
         />
         <Route path="/profile/:id" element={<Profile />} />
