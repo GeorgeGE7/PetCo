@@ -41,7 +41,7 @@ export function verifyAccountEmail(userId, token) {
       await BASE_URL.get(`/api/auth/${userId}/verify/${token}`);
       dispatch(authActions.setIsEmailVerified());
     } catch (error) {
-      toast.error(error.response?.data?.message);
+      // toast.error(error.response?.data?.message);
       console.log(`error in verifyAccountEmail: ${error}`);
     }
   };
