@@ -8,6 +8,7 @@ import { requestResetForgotPassword } from "../../redux/apiCalls/passwordApicall
 const ForgotPasswordPage = () => {
   const dispatch = useDispatch();
   const [email, setEmail] = useState("");
+  const [pressed, setPressed] = useState(false);
 
   const formSubmitHandler = (e) => {
     e.preventDefault();
@@ -15,7 +16,7 @@ const ForgotPasswordPage = () => {
     if (email.trim() == "" || !email) {
       return toast.error("Email is required");
     }
-
+    setPressed(true);
     dispatch(requestResetForgotPassword(email));
   };
 
@@ -34,8 +35,14 @@ const ForgotPasswordPage = () => {
             />
           </div>
 
-          <button className="btn" type="submit">
-            Submit
+          <button
+            style={{ backgroundColor: pressed && "gray" }}
+            disabled={pressed}
+            className="btn"
+            type="submit"
+          >
+            {!pressed ? "Submit" : "You will receive an email soon!"}
+            
           </button>
         </form>
       </div>

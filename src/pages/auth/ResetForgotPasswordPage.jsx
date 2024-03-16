@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { useParams } from "react-router-dom";
+import { useParams, useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 
 import { toast } from "react-toastify";
@@ -15,6 +15,7 @@ const ResetForgotPasswordPage = () => {
   const dispatch = useDispatch();
   const { isError } = useSelector((state) => state.password);
 
+  const navigate = useNavigate();
   const { userId, token } = useParams();
 
   useEffect(() => {
@@ -35,6 +36,7 @@ const ResetForgotPasswordPage = () => {
     }
 
     dispatch(setNewPasswordForForgotPassword(password, { userId, token }));
+    navigate("/login");
   };
 
   return (
