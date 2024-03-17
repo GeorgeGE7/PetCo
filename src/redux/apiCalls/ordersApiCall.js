@@ -39,3 +39,18 @@ export function getAllUserOrders(userId) {
     }
   };
 }
+
+// Admin
+export function getAllAdminOrders() {
+  return async (dispatch, getState) => {
+    try {
+      const response = await BASE_URL.get("/api/orders", {
+        headers: { Authorization: "Bearer " + getState().auth.user.token },
+      });
+      dispatch(orderActions.setAdminOrders(response.data));
+    } catch (error) {
+      error.response.data.message && toast.error(error.response.data.message);
+      console.log(`error in getAllAdminOrders: ${error}`);
+    }
+  };
+}

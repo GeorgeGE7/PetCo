@@ -1,5 +1,5 @@
 import React, { useEffect } from "react";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 
 import swal from "sweetalert";
 
@@ -8,12 +8,17 @@ import AdminSidebar from "./AdminSidebar";
 import "./tables.css";
 import { Link } from "react-router-dom";
 import { postActions } from "../../redux/slices/postSlice";
+import { getAllAdminOrders } from "../../redux/apiCalls/ordersApiCall";
+import { getSinglePost } from "../../redux/apiCalls/postsApiCall";
+import Order from "./order";
 
 const OrdersTable = () => {
+  const { adminOrders } = useSelector((state) => state.order);
   const dispatch = useDispatch();
 
   useEffect(() => {
     dispatch(postActions.hideSearchBar());
+    dispatch(getAllAdminOrders());
   }, []);
   const deleteTableItemHandler = () => {
     swal({
@@ -32,7 +37,7 @@ const OrdersTable = () => {
       }
     });
   };
-
+  console.log(adminOrders);
   return (
     <main id="admin-main-table">
       <AdminSidebar />
@@ -42,35 +47,19 @@ const OrdersTable = () => {
           <thead>
             <tr>
               <th>Count</th>
-              <th>Address</th>
-              <th>Post title</th>
+              <th>product</th>
+              <th>Details</th>
               <th>Action</th>
             </tr>
           </thead>
           <tbody>
-            {[1, 2, 3, 4, 5, 6, 7].map((item) => (
-              <tr key={item}>
-                <td>{item}</td>
-                <td>
-                  <div id="username-and-image">
-                    <span>El order</span>
-                  </div>
-                </td>
-                <td>el mfrod da 3nwan el order</td>
-                <td>
-                  <div id="table-btns-group">
-                    <button className="btn">
-                      <Link to={`/posts/details/${item._id}`}>Contact</Link>
-                    </button>
-                    <button
-                      onClick={deleteTableItemHandler}
-                      className="btn btn-alt"
-                    >
-                      Status
-                    </button>
-                  </div>
-                </td>
-              </tr>
+            {adminOrders?.map((item, index) => (
+              <Order
+                key={item._id}
+                item={item}
+                index={index}
+                deleteTableItemHandler={deleteTableItemHandler}
+              />
             ))}
           </tbody>
         </table>

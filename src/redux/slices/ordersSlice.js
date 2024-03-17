@@ -10,6 +10,8 @@ const orderSlice = createSlice({
     ordersCategory: [],
     loading: false,
     isOrderCreated: false,
+    // Admin
+    adminOrders: [],
   },
   reducers: {
     setOrders(state, action) {
@@ -35,7 +37,10 @@ const orderSlice = createSlice({
       state.isOrderCreated = false;
       state.loading = false;
     },
-
+    // Admin
+    setAdminOrders(state, action) {
+      state.adminOrders = action.payload;
+    },
   },
 });
 
