@@ -5,11 +5,11 @@ import { toast } from "react-toastify";
 import { RotatingLines } from "react-loader-spinner";
 
 import "./createPost.css";
-import { createPost } from "../../redux/apiCalls/postsApiCall";
+import { createPost, updatePost } from "../../redux/apiCalls/postsApiCall";
 import { postActions } from "../../redux/slices/postSlice";
 import { getAllCategories } from "../../redux/apiCalls/categoryApiCall";
 
-const CreatePostPage = () => {
+const CreatePostPage = ({ post, setOpenEditMode }) => {
   const dispatch = useDispatch();
 
   useEffect(() => {
@@ -35,10 +35,12 @@ const CreatePostPage = () => {
     if (category.trim() === "") return toast.error("category required");
     if (price <= 0) return toast.error("price required");
     // if (quantity <= 0) return toast.error("Quantity required");
-    if (!file) return toast.error("Image required");
+    if (!file & !post) return toast.error("Image required");
 
     const formData = new FormData();
-    formData.append("image", file);
+    if (file) {
+      formData.append("image", file);
+    }
     formData.append("title", title);
     formData.append("content", content);
     formData.append("category", category);
@@ -47,25 +49,39 @@ const CreatePostPage = () => {
     if (meta) {
       formData.append("meta", meta);
     }
-
-    dispatch(createPost(formData));
+    if (post) {
+      dispatch(updatePost(post.id, formData));
+      setOpenEditMode(false);
+    } else {
+      dispatch(createPost(formData));
+    }
   };
 
   const navigate = useNavigate();
   useEffect(() => {
-    if (isPostCreated) {
+    if (isPostCreated && !post) {
       navigate("/");
     }
-  }, [isPostCreated, navigate]);
+  }, [isPostCreated, navigate, post]);
 
   useEffect(() => {
     dispatch(getAllCategories());
+    if (post) {
+      setCategory(post?.category);
+      setContent(post?.content);
+      setMeta(post?.meta);
+      setTitle(post?.title);
+      setPrice(post?.price);
+      // settFile(post?.image);
+    }
   }, []);
 
   return (
     <main className="form-container">
-      <h1>Add new Product</h1>
-      {file && <img src={URL.createObjectURL(file)} alt="" />}
+      <h1>{post ? "Update Product" : "Add new Product"}</h1>
+      {(file || post?.image?.url) && (
+        <img src={file ? URL.createObjectURL(file) : post?.image?.url} alt="" />
+      )}
       <form onSubmit={formSubmitHandler}>
         <div className="create-post-image">
           <label className="btn" htmlFor="file">
@@ -138,7 +154,19 @@ const CreatePostPage = () => {
           />
         </div>
 
-        <div className="create-post-btns">
+        <div className="create-post-btns" style={{ gap: "2rem" }}>
+          {post && (
+            <button
+              style={{ backgroundColor: "rgb(63, 65, 69)" }}
+              onClick={(e) => {
+                e.preventDefault();
+                setOpenEditMode(false);
+              }}
+              className="btn"
+            >
+              Cancel
+            </button>
+          )}
           {loading ? (
             <div
               style={{
@@ -165,7 +193,7 @@ const CreatePostPage = () => {
               type="submit"
               className="btn"
             >
-              Create
+              {post ? "Update" : "Create"}
             </button>
           )}
         </div>

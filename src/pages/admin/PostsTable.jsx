@@ -7,7 +7,7 @@ import AdminSidebar from "./AdminSidebar";
 
 import { Link } from "react-router-dom";
 import { postActions } from "../../redux/slices/postSlice";
-import { getAllPosts, deletePost } from "../../redux/apiCalls/postsApiCall";
+import { getAllPosts, deleteSinglePost } from "../../redux/apiCalls/postsApiCall";
 import "./tables.css";
 
 const PostsTable = () => {
@@ -27,7 +27,7 @@ const PostsTable = () => {
       dangerMode: true,
     }).then((willDelete) => {
       if (willDelete) {
-        dispatch(deletePost(postId));
+        dispatch(deleteSinglePost(postId));
         swal("Post has been deleted!", {
           icon: "success",
         });

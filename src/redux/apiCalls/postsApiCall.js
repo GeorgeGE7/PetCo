@@ -103,6 +103,28 @@ export function createPost(post) {
   };
 }
 
+export function updatePost(postId, post) {
+  return async (dispatch, getState) => {
+    try {
+      dispatch(postActions.startLoading());
+      const response = await BASE_URL.put(`/api/posts/${postId}`, post, {
+        headers: {
+          Authorization: "Bearer " + getState().auth.user.token,
+          "Content-Type": "multipart/form-data",
+        },
+      });
+      dispatch(postActions.startIsPostCreated());
+      dispatch(postActions.setSinglePost(response.data.updatedPost));
+      toast.success("Product updated successfully");
+      setTimeout(() => dispatch(postActions.stopIsPostCreated()), 1700);
+    } catch (error) {
+      toast.error(error.response.data.message);
+      dispatch(postActions.stopLoading());
+      console.log(`error in createPost: ${error}`);
+    }
+  };
+}
+
 export function getPostsCount() {
   return async (dispatch, getState) => {
     try {
@@ -118,15 +140,16 @@ export function getPostsCount() {
     }
   };
 }
-export function deletePost(id) {
+export function deleteSinglePost(id) {
   return async (dispatch, getState) => {
+    dispatch(postActions.startLoading());
     try {
       const response = await BASE_URL.delete(`/api/posts/${id}`, {
         headers: {
           Authorization: "Bearer " + getState().auth.user.token,
         },
       });
-      dispatch(postActions.deletePost(response.data.postId));
+      dispatch(postActions.deletePost(id));
       toast.success(response.data.message);
     } catch (error) {
       toast.error(error.response.data.message);
