@@ -148,7 +148,7 @@ const PostDetailsPage = () => {
                 alt={singlePost?.title}
               />
               <div style={{ position: "relative" }}>
-                {user.isAdmin && (
+                {user?.isAdmin && (
                   <div
                     style={{
                       position: "absolute",

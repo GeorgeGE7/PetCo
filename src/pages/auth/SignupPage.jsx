@@ -56,6 +56,7 @@ const SignupPage = () => {
   const [address, setAddress] = useState("");
   const [phoneNumber, setPhoneNumber] = useState("");
   const [password, setPassword] = useState("");
+  const [confirmPassword, setConfirmPassword] = useState("");
 
   const formSubmitHandler = (e) => {
     e.preventDefault();
@@ -72,6 +73,14 @@ const SignupPage = () => {
       return toast.error("Password is required");
     }
 
+    if (confirmPassword.trim() == "") {
+      return toast.error("Confirm Password is required");
+    }
+
+    if (confirmPassword !== password) {
+      return toast.error("Password did not match");
+    }
+
     dispatch(
       signupUser({
         username,
@@ -85,7 +94,7 @@ const SignupPage = () => {
       })
     );
 
-    console.log({ username, email, password });
+    // console.log({ username, email, password });
   };
 
   if (signupMessage) {
@@ -221,6 +230,17 @@ const SignupPage = () => {
               id="password"
               value={password}
               onChange={(e) => setPassword(e.target.value)}
+            />
+          </div>
+          <div style={{marginTop: "-2rem", marginBottom:'2rem'}} className="auth-form">
+            <label id="password-label" htmlFor="confirm-password">
+              Confirm Password
+            </label>
+            <input
+              type="password"
+              id="confirm-password"
+              value={confirmPassword}
+              onChange={(e) => setConfirmPassword(e.target.value)}
             />
           </div>
 

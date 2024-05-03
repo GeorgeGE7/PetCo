@@ -5,7 +5,7 @@ const HeaderLeft = () => {
   return (
     <>
       <Link to="/" id="logo-text">
-        Pets shop
+        PetCo shop
         <span>
           <MdPets />
         </span>
