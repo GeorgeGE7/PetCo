@@ -34,6 +34,8 @@ const PostItem = ({ title, post }) => {
     // console.log(userCart);
   };
 
+  console.log(post)
+
   const createOrder = () => {
     if (user) {
       dispatch(
@@ -101,13 +103,16 @@ const PostItem = ({ title, post }) => {
           <h2 style={{marginBottom: "0.25rem"}}>
             {title === "Your Orders" ? post?.postId?.title : post?.title}
           </h2>
+          <div style={{display:"flex", justifyContent:"space-evenly", marginBottom:'0.5rem'}}>
           <Link
             to={`/posts/categories/${
               title === "Your Orders" ? post?.postId?.category : post?.category
             }`}
           >
-            {post?.category}
+            {title === "Your Orders" ? post?.postId?.category : post?.category}
           </Link>
+          <p>Price: {title === "Your Orders" ? post?.postId?.price : post?.price}</p>
+          </div>
 
           <p id="post-summery" style={{height:"2.4rem", marginTop: "0.25rem"}}>
             {title === "Your Orders" ? post?.postId?.content : post?.content}

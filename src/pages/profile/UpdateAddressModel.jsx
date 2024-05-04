@@ -44,7 +44,7 @@ const UpdateProfileModel = ({ setUpdateProfile, userProfile }) => {
             X
           </span>
         </abbr>
-        <h1 className="update-profile-h1">Update Profile</h1>
+        <h1 className="update-profile-h1">Update Address</h1>
         <input
           type="text"
           value={country}
