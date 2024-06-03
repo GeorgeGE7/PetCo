@@ -6,10 +6,12 @@ import { useDispatch } from "react-redux";
 import { loginUser } from "../../redux/apiCalls/authApiCall";
 import { postActions } from "../../redux/slices/postSlice";
 
+import { RotatingLines } from "react-loader-spinner";
 import "./auth-form.css";
 
 const LoginPage = () => {
   const dispatch = useDispatch();
+  const [loading, setLoading] = useState(false);
 
   useEffect(() => {
     dispatch(postActions.hideSearchBar());
@@ -21,22 +23,26 @@ const LoginPage = () => {
   const formSubmitHandler = (e) => {
     e.preventDefault();
 
+    setLoading(true);
+
     if (email.trim() == "") {
+      setLoading(false);
       return toast.error("Email is required");
     }
 
     if (password.trim() == "") {
+      setLoading(false);
       return toast.error("Password is required");
     }
 
-    console.log({ email, password });
     dispatch(loginUser({ email, password }));
+    setLoading(false);
   };
 
   return (
     <main>
       <div className="form-container">
-        <h1>Welcome back :)</h1>
+        <h1>{"Welcome back :)"}</h1>
         <form onSubmit={formSubmitHandler} className="auth-form">
           <div className="auth-form">
             <label htmlFor="email">Email</label>
@@ -62,8 +68,8 @@ const LoginPage = () => {
             <Link to="/forgot-password">Reset password</Link>
           </p>
 
-          <button className="btn" type="submit">
-            Login
+          <button disabled={loading} className="btn" type="submit">
+            {loading ? <RotatingLines strokeColor="#fff" width="27" /> : "Login"}
           </button>
         </form>
         <p className="login-link">

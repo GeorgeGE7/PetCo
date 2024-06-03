@@ -15,6 +15,7 @@ import { signupUser } from "../../redux/apiCalls/authApiCall";
 import "react-country-state-city/dist/react-country-state-city.css";
 import "./auth-form.css";
 import { postActions } from "../../redux/slices/postSlice";
+import { RotatingLines } from "react-loader-spinner";
 
 const SignupPage = () => {
   const dispatch = useDispatch();
@@ -43,6 +44,8 @@ const SignupPage = () => {
   }, []);
 
   const { signupMessage } = useSelector((state) => state.auth);
+  const [loading, setLoading] = useState(false);
+  const [enterStateManual, setEnterStateManual] = useState(false);
 
   const navigate = useNavigate();
 
@@ -80,7 +83,7 @@ const SignupPage = () => {
     if (confirmPassword !== password) {
       return toast.error("Password did not match");
     }
-
+    setLoading(true);
     dispatch(
       signupUser({
         username,
@@ -94,7 +97,7 @@ const SignupPage = () => {
       })
     );
 
-    // console.log({ username, email, password });
+    setLoading(false);
   };
 
   if (signupMessage) {
@@ -147,18 +150,46 @@ const SignupPage = () => {
                 placeHolder="Select Country"
               />
               <label>State</label>
-              <StateSelect
-                countryid={countryId}
-                onChange={(e) => {
-                  if ((countryId || countryId == 0) && e.id && e.name) {
-                    setStateId(e.id);
-                    setStateName(e.name);
-                  } else {
-                    setStateName(e.target.value);
-                  }
-                }}
-                placeHolder="Select State"
-              />
+              {!enterStateManual ? (
+                <div style={{position:"relative",}}>
+                  <button
+                    onClick={() => setEnterStateManual(true)} style={{width:"32%", position: "absolute", zIndex: 2, right: "0", top:"-1.3rem" ,margin: 0, padding:"0.27rem", fontSize: "0.7rem"}}
+                    className="btn"
+                    type="button"
+                  >
+                    Enter manual
+                  </button>
+                  <StateSelect
+                    countryid={countryId}
+                    onChange={(e) => {
+                      if ((countryId || countryId == 0) && e.id && e.name) {
+                        setStateId(e.id);
+                        setStateName(e.name);
+                      } else {
+                        setStateName(e.target.value);
+                      }
+                    }}
+                    placeHolder="Select State"
+                  />
+                </div>
+              ) : (
+                <div style={{position:"relative",}}>
+                  <button
+                    onClick={() => setEnterStateManual(false)} style={{width:"32%", position: "absolute", zIndex: 2, right: "0", top:"-1.5rem" ,margin: 0, padding:"0.27rem", fontSize: "0.8rem"}}
+                    className="btn-alt btn"
+                    type="button"
+                  >
+                    Reset
+                  </button>
+                  <input
+                  style={{marginTop:"1rem"}}
+                    type="text"
+                    id="state"
+                    value={stateName}
+                    onChange={(e) => setStateName(e.target.value)}
+                  />
+                </div>
+              )}
               <label id="address-label" htmlFor="city">
                 City
               </label>
@@ -232,7 +263,10 @@ const SignupPage = () => {
               onChange={(e) => setPassword(e.target.value)}
             />
           </div>
-          <div style={{marginTop: "-2rem", marginBottom:'2rem'}} className="auth-form">
+          <div
+            style={{ marginTop: "-2rem", marginBottom: "2rem" }}
+            className="auth-form"
+          >
             <label id="password-label" htmlFor="confirm-password">
               Confirm Password
             </label>
@@ -245,7 +279,11 @@ const SignupPage = () => {
           </div>
 
           <button className="btn" type="submit">
-            Sign up
+            {loading ? (
+              <RotatingLines strokeColor="#fff" width="27" />
+            ) : (
+              "Sign up"
+            )}
           </button>
         </form>
         <p className="login-link">
