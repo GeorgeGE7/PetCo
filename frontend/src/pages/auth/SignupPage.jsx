@@ -43,8 +43,7 @@ const SignupPage = () => {
     checkCountriesAndInternetConnection();
   }, []);
 
-  const { signupMessage } = useSelector((state) => state.auth);
-  const [loading, setLoading] = useState(false);
+  const { signupMessage, loading } = useSelector((state) => state.auth);
   const [enterStateManual, setEnterStateManual] = useState(false);
 
   const navigate = useNavigate();
@@ -83,7 +82,6 @@ const SignupPage = () => {
     if (confirmPassword !== password) {
       return toast.error("Password did not match");
     }
-    setLoading(true);
     dispatch(
       signupUser({
         username,
@@ -96,8 +94,6 @@ const SignupPage = () => {
         phoneNumber,
       })
     );
-
-    setLoading(false);
   };
 
   if (signupMessage) {
@@ -151,9 +147,19 @@ const SignupPage = () => {
               />
               <label>State</label>
               {!enterStateManual ? (
-                <div style={{position:"relative",}}>
+                <div style={{ position: "relative" }}>
                   <button
-                    onClick={() => setEnterStateManual(true)} style={{width:"32%", position: "absolute", zIndex: 2, right: "0", top:"-1.3rem" ,margin: 0, padding:"0.27rem", fontSize: "0.7rem"}}
+                    onClick={() => setEnterStateManual(true)}
+                    style={{
+                      width: "32%",
+                      position: "absolute",
+                      zIndex: 2,
+                      right: "0",
+                      top: "-1.3rem",
+                      margin: 0,
+                      padding: "0.27rem",
+                      fontSize: "0.7rem",
+                    }}
                     className="btn"
                     type="button"
                   >
@@ -173,16 +179,26 @@ const SignupPage = () => {
                   />
                 </div>
               ) : (
-                <div style={{position:"relative",}}>
+                <div style={{ position: "relative" }}>
                   <button
-                    onClick={() => setEnterStateManual(false)} style={{width:"32%", position: "absolute", zIndex: 2, right: "0", top:"-1.5rem" ,margin: 0, padding:"0.27rem", fontSize: "0.8rem"}}
+                    onClick={() => setEnterStateManual(false)}
+                    style={{
+                      width: "32%",
+                      position: "absolute",
+                      zIndex: 2,
+                      right: "0",
+                      top: "-1.5rem",
+                      margin: 0,
+                      padding: "0.27rem",
+                      fontSize: "0.8rem",
+                    }}
                     className="btn-alt btn"
                     type="button"
                   >
                     Reset
                   </button>
                   <input
-                  style={{marginTop:"1rem"}}
+                    style={{ marginTop: "1rem" }}
                     type="text"
                     id="state"
                     value={stateName}
@@ -278,9 +294,13 @@ const SignupPage = () => {
             />
           </div>
 
-          <button className="btn" type="submit">
+          <button disabled={loading} className="btn" type="submit">
             {loading ? (
-              <RotatingLines strokeColor="#fff" width="27" />
+              <div
+                style={{ display: "flex", gap: "0.5rem", flexDirection: "row" }}
+              >
+                loading... <RotatingLines strokeColor="#fff" width="15" />
+              </div>
             ) : (
               "Sign up"
             )}

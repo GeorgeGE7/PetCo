@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { toast } from "react-toastify";
 
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { loginUser } from "../../redux/apiCalls/authApiCall";
 import { postActions } from "../../redux/slices/postSlice";
 
@@ -11,7 +11,8 @@ import "./auth-form.css";
 
 const LoginPage = () => {
   const dispatch = useDispatch();
-  const [loading, setLoading] = useState(false);
+
+  const { loading } = useSelector((state) => state.auth);
 
   useEffect(() => {
     dispatch(postActions.hideSearchBar());
@@ -23,20 +24,15 @@ const LoginPage = () => {
   const formSubmitHandler = (e) => {
     e.preventDefault();
 
-    setLoading(true);
-
     if (email.trim() == "") {
-      setLoading(false);
       return toast.error("Email is required");
     }
 
     if (password.trim() == "") {
-      setLoading(false);
       return toast.error("Password is required");
     }
 
     dispatch(loginUser({ email, password }));
-    setLoading(false);
   };
 
   return (
@@ -69,7 +65,15 @@ const LoginPage = () => {
           </p>
 
           <button disabled={loading} className="btn" type="submit">
-            {loading ? <RotatingLines strokeColor="#fff" width="27" /> : "Login"}
+            {loading ? (
+              <div
+                style={{ display: "flex", gap: "0.5rem", flexDirection: "row" }}
+              >
+                loading... <RotatingLines strokeColor="#fff" width="15" />
+              </div>
+            ) : (
+              "Login"
+            )}
           </button>
         </form>
         <p className="login-link">
