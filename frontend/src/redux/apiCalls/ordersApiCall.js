@@ -54,3 +54,24 @@ export function getAllAdminOrders() {
     }
   };
 }
+
+export function updateOrderStatus(orderId, status) {
+  return async (dispatch, getState) => {
+    try {
+      const response = await BASE_URL.put(
+        `/api/orders/${orderId}`,
+        {status},
+        {
+          headers: {
+            Authorization: "Bearer " + getState().auth.user.token,
+          },
+        }
+      );
+      dispatch(orderActions.updateOrder(response.data?.order));
+      toast.success(response.data.message);
+    } catch (error) {
+      toast.error(error.response.data.message);
+      console.log(`error in updateOrderStatus: ${error}`);
+    }
+  };
+}

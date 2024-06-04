@@ -17,6 +17,14 @@ const orderSlice = createSlice({
     setOrders(state, action) {
       state.orders = action.payload;
     },
+    updateOrder(state, action) {
+      const newOrder = action.payload;
+      const order = state.adminOrders.findIndex((order) => order._id == newOrder?._id);
+      console.log(order);
+      if (order !== -1) {
+        state.adminOrders[order].status = newOrder.status;
+      }
+    },
     setSingleOrder(state, action) {
       state.singleOrder = action.payload;
     },
