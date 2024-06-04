@@ -31,7 +31,9 @@ const PostDetailsPage = () => {
     dispatch(postActions.hideSearchBar());
   }, []);
 
-  const { singlePost } = useSelector((state) => state.post);
+  const { singlePost, loading: postLoading } = useSelector(
+    (state) => state.post
+  );
 
   const { userCart } = useSelector((state) => state.cart);
   const { user } = useSelector((state) => state.auth);
@@ -139,6 +141,10 @@ const PostDetailsPage = () => {
       <main>
         {openEditMode ? (
           <CreatePostPage post={singlePost} setOpenEditMode={setOpenEditMode} />
+        ) : postLoading ? (
+          <div style={{ display: "flex", justifyContent: "center", width:"100%" }}>
+            <RotatingLines strokeColor="#808080" />
+          </div>
         ) : (
           <section className="post-details">
             <div className="post-details-image-wrapper">

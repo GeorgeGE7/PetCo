@@ -19,7 +19,7 @@ const Order = ({ item, index, handleStatusChange }) => {
             {item?.status}
           </button>
           {statusDropdown && (
-            <div style={{position: "absolute", right: "0",top: "0", overflow:"visible",display: "flex", flexDirection: "column", zIndex:"2", backgroundColor: "#00000099",}} id="status-dropdown">
+            <div style={{position: "absolute", right: "7px",top: "15px", overflow:"visible",display: "flex", flexDirection: "column", zIndex:"2", backgroundColor: "#00000099",}} id="status-dropdown">
               {item?.status != "Pending" && <button style={{fontSize:"14px"}} onClick={() => {setStatusDropdown(false);handleStatusChange(item._id, "Pending")}} className="btn btn-alt">Pending</button>}
               {item?.status != "Shipped" && <button style={{fontSize:"14px"}} onClick={() => {setStatusDropdown(false);handleStatusChange(item._id, "Shipped")}} className="btn btn-alt">Shipped</button>}
               {item?.status != "Delivered" && <button style={{fontSize:"14px"}} onClick={() => {setStatusDropdown(false);handleStatusChange(item._id, "Delivered")}} className="btn btn-alt">Delivered</button>}

@@ -5,9 +5,13 @@ import PostItem from "./PostItem";
 
 import "./postList.css";
 import SearchBar from "../searchBar/SerachBar";
+import { RotatingLines } from "react-loader-spinner";
 
 const PostList = ({ title, posts }) => {
   const dispatch = useDispatch();
+
+  const { loading } = useSelector((state) => state.post);
+
   const [search, setSearch] = useState();
 
   useEffect(() => {
@@ -20,43 +24,51 @@ const PostList = ({ title, posts }) => {
   }, [search]);
   return (
     <section id="all-products">
-      <div
-        id="title-and-search-bar"
-        style={{
-          display: "flex",
-          alignItems: "flex-start",
-          justifyContent: "space-between",
-        }}
-      >
-        <h2>{title}</h2>
-        {/* <input
+      {loading ? (
+        <div style={{ display: "flex", justifyContent: "center" }}>
+          <RotatingLines strokeColor="#808080" />
+        </div>
+      ) : (
+        <>
+          <div
+            id="title-and-search-bar"
+            style={{
+              display: "flex",
+              alignItems: "flex-start",
+              justifyContent: "space-between",
+            }}
+          >
+            <h2>{title}</h2>
+            {/* <input
           placeholder="Search..."
           id="search-bar-mobile"
           onChange={(e) => {
             setSearch(e.target.value);
           }}
         /> */}
-        {title === "All Products" && (
-          <SearchBar id={"search-bar-mobile"} setSearch={setSearch} />
-        )}
-      </div>
-      {/* <input 
+            {title === "All Products" && (
+              <SearchBar id={"search-bar-mobile"} setSearch={setSearch} />
+            )}
+          </div>
+          {/* <input 
         placeholder="Search..."
         id="search-bar-smallest"
         onChange={(e) => {
           setSearch(e.target.value);
         }}
       /> */}
-      {title === "All Products" && (
-        <SearchBar id={"search-bar-smallest"} setSearch={setSearch} />
+          {title === "All Products" && (
+            <SearchBar id={"search-bar-smallest"} setSearch={setSearch} />
+          )}
+          <ul id="products-grid">
+            {posts?.map((post) => (
+              <li key={post._id}>
+                <PostItem title={title} post={post} />
+              </li>
+            ))}
+          </ul>
+        </>
       )}
-      <ul id="products-grid">
-        {posts?.map((post) => (
-          <li key={post._id}>
-            <PostItem title={title} post={post} />
-          </li>
-        ))}
-      </ul>
     </section>
   );
 };

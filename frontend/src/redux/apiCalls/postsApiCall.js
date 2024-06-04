@@ -4,6 +4,7 @@ import BASE_URL from "../../utils/request";
 
 export function getAllPosts(searchQuery) {
   return async (dispatch) => {
+    dispatch(postActions.startLoading());
     try {
       if (searchQuery) {
         const response = await BASE_URL.get(`/api/posts?search=${searchQuery}`);
@@ -12,8 +13,10 @@ export function getAllPosts(searchQuery) {
         const response = await BASE_URL.get("/api/posts");
         dispatch(postActions.setPosts(response.data));
       }
+      dispatch(postActions.stopLoading());
     } catch (error) {
       toast.error(error.response.data.message);
+      dispatch(postActions.stopLoading());
       console.log(`error in getAllPosts: ${error}`);
     }
   };
@@ -21,11 +24,14 @@ export function getAllPosts(searchQuery) {
 
 export function getSinglePost(postId) {
   return async (dispatch) => {
+    dispatch(postActions.startLoading());
     try {
       const response = await BASE_URL.get(`/api/posts/${postId}`);
       dispatch(postActions.setSinglePost(response.data.post));
+      dispatch(postActions.stopLoading());
     } catch (error) {
       toast.error(error.response.data.message);
+      dispatch(postActions.stopLoading());
       console.log(`error in getSinglePost: ${error}`);
     }
   };
@@ -53,12 +59,14 @@ export function togglePostLike(postId) {
 
 export function getCategoryPosts(category) {
   return async (dispatch) => {
+    dispatch(postActions.startLoading());
     try {
       const response = await BASE_URL.get(`/api/posts?category=${category}`);
       dispatch(postActions.setPostsCategory(response.data));
-      console.log(response.data);
+      dispatch(postActions.stopLoading());
     } catch (error) {
       toast.error(error.response.data.message);
+      dispatch(postActions.stopLoading());
       console.log(`error in getAllPosts: ${error}`);
     }
   };
