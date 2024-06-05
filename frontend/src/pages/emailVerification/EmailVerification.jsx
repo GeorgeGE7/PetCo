@@ -5,10 +5,11 @@ import { useDispatch, useSelector } from "react-redux";
 import { verifyAccountEmail } from "../../redux/apiCalls/authApiCall";
 
 import "./emailVerification.css";
+import { RotatingLines } from "react-loader-spinner";
 
 const EmailVerification = () => {
   const dispatch = useDispatch();
-  const { isEmailVerified } = useSelector((state) => state.auth);
+  const { isEmailVerified, loading } = useSelector((state) => state.auth);
 
   const { userId, token } = useParams();
 
@@ -18,29 +19,35 @@ const EmailVerification = () => {
 
   return (
     <main id="email-verification-main">
-      <div id="email-verification">
-        {isEmailVerified ? (
-          <>
-            {/* <div id="email-verification-icon">
+      {loading ? (
+        <div style={{ display: "flex", justifyContent: "center" }}>
+          <RotatingLines strokeColor="#808080" />
+        </div>
+      ) : (
+        <div id="email-verification">
+          {isEmailVerified ? (
+            <>
+              {/* <div id="email-verification-icon">
               <IoMdDoneAll
                 size={70}
                 color="green"
                 style={{ width: "100%", margin: "1rem auto 1rem auto" }}
               />
             </div> */}
-            <h1 id="email-verification-title">
-              Your Email verified successfully
-            </h1>
-            <h2>
-              You can <Link to={"/login"}>Login</Link> now!
-            </h2>
-          </>
-        ) : (
-          <>
-            <h1 id="email-verification-title">Not Found!</h1>
-          </>
-        )}
-      </div>
+              <h1 id="email-verification-title">
+                Your Email verified successfully
+              </h1>
+              <h2>
+                You can <Link to={"/login"}>Login</Link> now!
+              </h2>
+            </>
+          ) : (
+            <>
+              <h1 id="email-verification-title">Not Found!</h1>
+            </>
+          )}
+        </div>
+      )}
     </main>
   );
 };

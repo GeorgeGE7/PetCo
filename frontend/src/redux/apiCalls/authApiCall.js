@@ -43,11 +43,14 @@ export function logoutUser() {
 
 export function verifyAccountEmail(userId, token) {
   return async (dispatch) => {
+    dispatch(authActions.startLoading());
     try {
       await BASE_URL.get(`/api/auth/${userId}/verify/${token}`);
       dispatch(authActions.setIsEmailVerified());
+      dispatch(authActions.endLoading());
     } catch (error) {
       // toast.error(error.response?.data?.message);
+      dispatch(authActions.endLoading());
       console.log(`error in verifyAccountEmail: ${error}`);
     }
   };
