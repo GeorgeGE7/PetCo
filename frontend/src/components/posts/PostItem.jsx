@@ -133,7 +133,7 @@ const PostItem = ({ title, post }) => {
               </button>
             ) : (
               <Link onClick={handleAddToCart} className="btn btn-alt">
-                {!existInCart ? "Add to cart" : "In the cart"}
+                {!existInCart ? "Add to cart" : "Remove"}
               </Link>
             )}
           </div>
