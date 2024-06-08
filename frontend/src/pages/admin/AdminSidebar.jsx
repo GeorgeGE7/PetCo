@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 const AdminSidebar = () => {
   return (
     <div className="admin-sidebar">
-      <Link to="admin-dashboard" className="btn-alt admin-sidebar-title">
+      <Link to="/admin-dashboard" className="btn-alt admin-sidebar-title">
         <h2>Dashboard</h2>
       </Link>
       <ul className="admin-dashboard-list">

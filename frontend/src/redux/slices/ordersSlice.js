@@ -31,10 +31,10 @@ const orderSlice = createSlice({
     setOrdersCount(state, action) {
       state.ordersCount = action.payload;
     },
-    startLoading(state, action) {
+    startLoading(state) {
       state.loading = true;
     },
-    stopLoading(state, action) {
+    stopLoading(state) {
       state.loading = false;
     },
     startIsOrderCreated(state) {
