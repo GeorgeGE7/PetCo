@@ -61,12 +61,15 @@ const NavItems = ({ setToggle }) => {
               {userDropdown && (
                 <div id="header-user-dropdown">
                   <Link
+                  style={{color: "#808080"}}
                     onClick={() => {setUserDropdown((prev) => !prev); setToggle(false)}}
                     to={`/profile/${user?._id}`}
                   >
                     Profile
                   </Link>
-                  <Link onClick={() =>{logoutHandler(); setToggle(false)}}>Logout</Link>
+                  <Link 
+                  style={{color: "#808080"}}
+                  onClick={() =>{logoutHandler(); setToggle(false)}}>Logout</Link>
                 </div>
               )}
             </div>

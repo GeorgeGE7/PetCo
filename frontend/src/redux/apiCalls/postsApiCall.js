@@ -4,7 +4,9 @@ import BASE_URL from "../../utils/request";
 
 export function getAllPosts(searchQuery) {
   return async (dispatch) => {
-    dispatch(postActions.startLoading());
+    if (!searchQuery) {
+      dispatch(postActions.startLoading());
+    }
     try {
       if (searchQuery) {
         const response = await BASE_URL.get(`/api/posts?search=${searchQuery}`);
