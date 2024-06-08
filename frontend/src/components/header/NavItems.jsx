@@ -21,13 +21,15 @@ const NavItems = ({ setToggle }) => {
           <Link to="/">Shop</Link>
         </li>
 
-        <li onClick={() => setToggle(false)}>
-          <Link to="/user/cart">
-            <span id="cart-length">{userCart?.length}</span>Cart
-          </Link>
-        </li>
+        {!user?.isAdmin && (
+          <li onClick={() => setToggle(false)}>
+            <Link to="/user/cart">
+              <span id="cart-length">{userCart?.length}</span>Cart
+            </Link>
+          </li>
+        )}
 
-        {user && (
+        {user && !user?.isAdmin && (
           <li onClick={() => setToggle(false)}>
             <Link to={`/orders/${user?._id}`}>Orders</Link>
           </li>
@@ -53,7 +55,9 @@ const NavItems = ({ setToggle }) => {
                 alt="User"
               />
               <span
-                onClick={() => {setUserDropdown((prev) => !prev);}}
+                onClick={() => {
+                  setUserDropdown((prev) => !prev);
+                }}
                 id="header-username"
               >
                 {user?.username}
@@ -61,15 +65,24 @@ const NavItems = ({ setToggle }) => {
               {userDropdown && (
                 <div id="header-user-dropdown">
                   <Link
-                  style={{color: "#808080"}}
-                    onClick={() => {setUserDropdown((prev) => !prev); setToggle(false)}}
+                    style={{ color: "#808080" }}
+                    onClick={() => {
+                      setUserDropdown((prev) => !prev);
+                      setToggle(false);
+                    }}
                     to={`/profile/${user?._id}`}
                   >
                     Profile
                   </Link>
-                  <Link 
-                  style={{color: "#808080"}}
-                  onClick={() =>{logoutHandler(); setToggle(false)}}>Logout</Link>
+                  <Link
+                    style={{ color: "#808080" }}
+                    onClick={() => {
+                      logoutHandler();
+                      setToggle(false);
+                    }}
+                  >
+                    Logout
+                  </Link>
                 </div>
               )}
             </div>
