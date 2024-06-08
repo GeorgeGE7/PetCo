@@ -17,13 +17,14 @@ const CategoryPage = () => {
 
   const { category } = useParams();
   const { postsCategory, loading } = useSelector((state) => state.post);
+  const { categories } = useSelector((state) => state.category);
 
   useEffect(() => {
     dispatch(getCategoryPosts(category));
   }, [category]);
 
   return (
-    <main style={{ display: "grid" }}>
+    <main>
       {loading ? (
         <div
           style={{ display: "flex", justifyContent: "center", width: "100%" }}
@@ -31,8 +32,8 @@ const CategoryPage = () => {
           <RotatingLines strokeColor="#808080" />
         </div>
       ) : (
-        <section className="category">
-          {postsCategory?.length === 0 ? (
+        // <section className="category">
+          postsCategory?.length === 0 ? (
             <>
               <h2 id="category-not-found">
                 Products on <span>{category}</span> not found!
@@ -42,9 +43,26 @@ const CategoryPage = () => {
               </Link>
             </>
           ) : (
-            <PostList title={category} posts={postsCategory} />
-          )}
-        </section>
+            <>
+              <section id="categories-sidebar">
+                <h2>Categories</h2>
+                <ul>
+                  {categories?.map((category) => (
+                    <Link
+                      key={category?._id}
+                      className="btn-alt categories-sidebar-link"
+                      to={`/posts/categories/${category?.title}`}
+                    >
+                      {category?.title}
+                    </Link>
+                  ))}
+                </ul>
+              </section>
+
+              <PostList title={category} posts={postsCategory} />
+            </>
+          )
+        // </section>
       )}
     </main>
   );
