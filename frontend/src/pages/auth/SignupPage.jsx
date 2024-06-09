@@ -50,6 +50,8 @@ const SignupPage = () => {
 
   const [username, setUsername] = useState("");
   const [email, setEmail] = useState("");
+  const [dateOfBirth, setDateOfBirth] = useState(null);
+  const [gender, setGender] = useState("");
   const [countryId, setCountryId] = useState(0);
   const [countryName, setCountryName] = useState("");
   const [stateId, setStateId] = useState(0);
@@ -71,6 +73,17 @@ const SignupPage = () => {
       return toast.error("Email is required");
     }
 
+    if (!dateOfBirth) {
+      return toast.error("Date of birth is required");
+    }
+
+    if (gender.trim() == "") {
+      return toast.error("Gender is required");
+    }
+
+    if (gender != "male" || gender != "female"){
+      return toast.error("Gender should be male or female");
+    }
     if (password.trim() == "") {
       return toast.error("Password is required");
     }
@@ -86,6 +99,8 @@ const SignupPage = () => {
       signupUser({
         username,
         email,
+        dateOfBirth,
+        gender,
         password,
         country: countryName,
         state: stateName,
@@ -130,6 +145,24 @@ const SignupPage = () => {
               onChange={(e) => setEmail(e.target.value)}
             />
           </div>
+
+          <div className="auth-form">
+            <label htmlFor="dateOfBirth">Date of birth</label>
+            <input
+              type="date"
+              id="dateOfBirth"
+              value={dateOfBirth}
+              onChange={(e) => setDateOfBirth(e.target.value)}
+            />
+          </div>
+
+          <select value={gender} onChange={(e) => setGender(e.target.value)}>
+            <option disabled value="">
+              Select a gender
+            </option>
+            <option value={"male"}>Male</option>
+            <option value={"female"}>Female</option>
+          </select>
           {/*  */}
           {ConnectedToInternet ? (
             <div id="country-state-city">
