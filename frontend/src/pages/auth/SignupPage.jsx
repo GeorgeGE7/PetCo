@@ -82,7 +82,7 @@ const SignupPage = () => {
     }
 
     if (gender != "male" || gender != "female"){
-      return toast.error("Gender should be male or female");
+      return toast.error("Select a valid gender");
     }
     if (password.trim() == "") {
       return toast.error("Password is required");
@@ -156,7 +156,7 @@ const SignupPage = () => {
             />
           </div>
 
-          <select value={gender} onChange={(e) => setGender(e.target.value)}>
+          <select value={gender} onSelect={(e) => setGender(e.target.value)} onChange={(e) => setGender(e.target.value)}>
             <option disabled value="">
               Select a gender
             </option>
