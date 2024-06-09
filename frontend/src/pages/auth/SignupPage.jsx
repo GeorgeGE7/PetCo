@@ -81,8 +81,8 @@ const SignupPage = () => {
       return toast.error("Gender is required");
     }
 
-    if (gender != "male" || gender != "female"){
-      return toast.error("Select a valid gender");
+    if (gender != "male" && gender != "female"){
+      return toast.error("Gender should be male or female");
     }
     if (password.trim() == "") {
       return toast.error("Password is required");
