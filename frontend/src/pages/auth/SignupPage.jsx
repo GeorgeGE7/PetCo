@@ -160,8 +160,8 @@ const SignupPage = () => {
             <option disabled value="">
               Select a gender
             </option>
-            <option value={"male"}>Male</option>
-            <option value={"female"}>Female</option>
+            <option onClick={() => setGender("male")} value={"male"}>Male</option>
+            <option onClick={() => setGender("female")}  value={"female"}>Female</option>
           </select>
           {/*  */}
           {ConnectedToInternet ? (
