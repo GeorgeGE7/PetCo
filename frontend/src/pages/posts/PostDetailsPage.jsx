@@ -182,8 +182,8 @@ const PostDetailsPage = () => {
                   style={{ margin: "-0.5rem 0 1.5rem 0", fontSize: "1.1rem" }}
                 >
                   Price:{" "}
-                  <span style={{ fontWeight: "600", fontSize: "1.3rem" }}>
-                    {singlePost?.price}
+                   <span style={{ fontWeight: "600", fontSize: singlePost?.category?.includes("ervice") ? "0.8rem" : "1.3rem" }}>
+                    {singlePost?.category?.includes("Service") ? "Not Set" : singlePost?.price}
                   </span>
                 </h3>
                 <div id="btns-container">

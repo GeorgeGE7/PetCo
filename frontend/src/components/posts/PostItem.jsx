@@ -123,7 +123,12 @@ const PostItem = ({ title, post }) => {
             </Link>
             <p>
               Price:{" "}
-              {title === "Your Orders" ? post?.postId?.price : post?.price}
+              {post?.postId?.category?.includes("ervice") ||
+              post?.category?.includes("ervice")
+                ? "Not Set"
+                : title === "Your Orders"
+                ? post?.postId?.price
+                : post?.price}
             </p>
           </div>
 
