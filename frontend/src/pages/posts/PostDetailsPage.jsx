@@ -227,7 +227,7 @@ const PostDetailsPage = () => {
                           style={{ marginRight: "0.37rem" }}
                           size={17}
                         />
-                        {"In the cart"}
+                        {"Remove"}
                       </>
                     )}
                   </Link>
