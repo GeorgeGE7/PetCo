@@ -8,7 +8,6 @@ const authSlice = createSlice({
       : null,
     signupMessage: null,
     isEmailVerified: false,
-    loading: false
   },
   reducers: {
     login(state, action) {
@@ -35,13 +34,6 @@ const authSlice = createSlice({
     setUserProfileBio(state, action) {
       state.user.bio = action.payload;
     },
-    startLoading(state){
-      state.loading = true 
-    },
-
-    endLoading(state){
-      state.loading = false 
-    }
   },
 });
 

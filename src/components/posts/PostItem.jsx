@@ -34,7 +34,7 @@ const PostItem = ({ title, post }) => {
     // console.log(userCart);
   };
 
-  console.log(post);
+  console.log(post)
 
   const createOrder = () => {
     if (user) {
@@ -100,42 +100,21 @@ const PostItem = ({ title, post }) => {
           alt={title === "Your Orders" ? post?.postId?.title : post?.title}
         />
         <div className="product-item-content">
-          <h2 style={{ marginBottom: "0.25rem" }}>
+          <h2 style={{marginBottom: "0.25rem"}}>
             {title === "Your Orders" ? post?.postId?.title : post?.title}
           </h2>
-          <div
-            style={{
-              display: "flex",
-              justifyContent: "space-evenly",
-              marginBottom: "0.5rem",
-            }}
+          <div style={{display:"flex", justifyContent:"space-evenly", marginBottom:'0.5rem'}}>
+          <Link
+            to={`/posts/categories/${
+              title === "Your Orders" ? post?.postId?.category : post?.category
+            }`}
           >
-            <Link
-              to={`/posts/categories/${
-                title === "Your Orders"
-                  ? post?.postId?.category
-                  : post?.category
-              }`}
-            >
-              {title === "Your Orders"
-                ? post?.postId?.category
-                : post?.category}
-            </Link>
-            <p>
-              Price:{" "}
-              {post?.postId?.category?.includes("ervice") ||
-              post?.category?.includes("ervice")
-                ? "Not Set"
-                : title === "Your Orders"
-                ? post?.postId?.price
-                : post?.price}
-            </p>
+            {title === "Your Orders" ? post?.postId?.category : post?.category}
+          </Link>
+          <p>Price: {title === "Your Orders" ? post?.postId?.price : post?.price}</p>
           </div>
 
-          <p
-            id="post-summery"
-            style={{ height: "2.4rem", marginTop: "0.25rem" }}
-          >
+          <p id="post-summery" style={{height:"2.4rem", marginTop: "0.25rem"}}>
             {title === "Your Orders" ? post?.postId?.content : post?.content}
           </p>
 
@@ -153,11 +132,9 @@ const PostItem = ({ title, post }) => {
                 {post?.status}
               </button>
             ) : (
-              !user?.isAdmin && (
-                <Link onClick={handleAddToCart} className="btn btn-alt">
-                  {!existInCart ? "Add to cart" : "Remove"}
-                </Link>
-              )
+              <Link onClick={handleAddToCart} className="btn btn-alt">
+                {!existInCart ? "Add to cart" : "In the cart"}
+              </Link>
             )}
           </div>
           {title === "Your Cart" &&

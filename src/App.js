@@ -60,7 +60,7 @@ function App() {
           {/* TODO create-post on navlinks */}
           <Route
             path="create-product"
-            element={user?.isAdmin ? <CreatePostPage /> : <Navigate to="/" />}
+            element={user ? <CreatePostPage /> : <Navigate to="/" />}
           />
           <Route path="details/:id" element={<PostDetailsPage />} />
           <Route path="categories/:category" element={<CategoryPage />} />

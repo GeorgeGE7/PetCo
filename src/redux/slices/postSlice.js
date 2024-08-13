@@ -31,10 +31,10 @@ const postSlice = createSlice({
     setUserLikedProducts(state, action) {
       state.userLikeProducts = action.payload;
     },
-    startLoading(state) {
+    startLoading(state, action) {
       state.loading = true;
     },
-    stopLoading(state) {
+    stopLoading(state, action) {
       state.loading = false;
     },
     startIsPostCreated(state) {

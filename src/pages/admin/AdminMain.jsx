@@ -10,7 +10,6 @@ import {
 import AddCategoryForm from "./AddCategoryForm";
 import { getPostsCount } from "../../redux/apiCalls/postsApiCall";
 import { getAllReviews } from "../../redux/apiCalls/reviewApiCall";
-import { getAllAdminOrders } from "../../redux/apiCalls/ordersApiCall";
 
 const AdminMain = () => {
   const dispatch = useDispatch();
@@ -18,11 +17,8 @@ const AdminMain = () => {
   const { usersCount } = useSelector((state) => state.userProfile);
   const { postsCount } = useSelector((state) => state.post);
   const { reviews } = useSelector((state) => state.review);
-  const { adminOrders } = useSelector((state) => state.order);
-
 
   useEffect(() => {
-    dispatch(getAllAdminOrders());
     dispatch(getAllCategories());
     dispatch(getUsersCount());
     dispatch(getUsersProfile());
@@ -78,7 +74,7 @@ const AdminMain = () => {
         {/*  */}
         <div className="admin-main-card">
           <h5 className="admin-card-title">Orders</h5>
-          <div className="admin-card-count">{adminOrders?.length}</div>
+          <div className="admin-card-count">120</div>
           <div className="admin-card-links-wrapper">
             <Link className="btn btn-alt" to="/admin-dashboard/orders-table">
               See all orders

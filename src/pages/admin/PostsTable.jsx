@@ -6,11 +6,8 @@ import swal from "sweetalert";
 import AdminSidebar from "./AdminSidebar";
 
 import { Link } from "react-router-dom";
-import {
-  deleteSinglePost,
-  getAllPosts,
-} from "../../redux/apiCalls/postsApiCall";
 import { postActions } from "../../redux/slices/postSlice";
+import { getAllPosts, deleteSinglePost } from "../../redux/apiCalls/postsApiCall";
 import "./tables.css";
 
 const PostsTable = () => {
@@ -72,11 +69,13 @@ const PostsTable = () => {
                 </td>
                 <td>
                   <div id="table-btns-group">
-                    {/* <button className="btn">
+                    <button className="btn">
                       <Link to={`/posts/orders/${item._id}`}>Orders</Link>
-                    </button> */}
+                    </button>
                     <button className="btn" id="extra">
-                      <Link to={`/posts/details/${item._id}`}>View</Link>
+                      <Link to={`/posts/details/${item._id}`}>
+                        View
+                      </Link>
                     </button>
                     <button
                       onClick={() => deleteTableItemHandler(item?._id)}

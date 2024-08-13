@@ -2,17 +2,14 @@ import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { toast } from "react-toastify";
 
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 import { loginUser } from "../../redux/apiCalls/authApiCall";
 import { postActions } from "../../redux/slices/postSlice";
 
-import { RotatingLines } from "react-loader-spinner";
 import "./auth-form.css";
 
 const LoginPage = () => {
   const dispatch = useDispatch();
-
-  const { loading } = useSelector((state) => state.auth);
 
   useEffect(() => {
     dispatch(postActions.hideSearchBar());
@@ -32,13 +29,14 @@ const LoginPage = () => {
       return toast.error("Password is required");
     }
 
+    console.log({ email, password });
     dispatch(loginUser({ email, password }));
   };
 
   return (
     <main>
       <div className="form-container">
-        <h1>{"Welcome back :)"}</h1>
+        <h1>Welcome back :)</h1>
         <form onSubmit={formSubmitHandler} className="auth-form">
           <div className="auth-form">
             <label htmlFor="email">Email</label>
@@ -64,16 +62,8 @@ const LoginPage = () => {
             <Link to="/forgot-password">Reset password</Link>
           </p>
 
-          <button disabled={loading} className="btn" type="submit">
-            {loading ? (
-              <div
-                style={{ display: "flex", gap: "0.5rem", flexDirection: "row" }}
-              >
-                loading... <RotatingLines strokeColor="#fff" width="15" />
-              </div>
-            ) : (
-              "Login"
-            )}
+          <button className="btn" type="submit">
+            Login
           </button>
         </form>
         <p className="login-link">

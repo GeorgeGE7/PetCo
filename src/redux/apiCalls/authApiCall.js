@@ -5,14 +5,11 @@ import BASE_URL from "../../utils/request";
 
 export function signupUser(user) {
   return async (dispatch) => {
-    dispatch(authActions.startLoading());
     try {
       const response = await BASE_URL.post("/api/auth/register", user);
       dispatch(authActions.signup(response.data.message));
-    dispatch(authActions.endLoading());
     } catch (error) {
       toast.error(error.response?.data?.message);
-    dispatch(authActions.endLoading());
       console.log(`error in signupUser: ${error}`);
     }
   };
@@ -20,15 +17,12 @@ export function signupUser(user) {
 
 export function loginUser(user) {
   return async (dispatch) => {
-    dispatch(authActions.startLoading());
     try {
       const response = await BASE_URL.post("/api/auth/login", user);
       dispatch(authActions.login(response.data));
       localStorage.setItem("userData", JSON.stringify(response.data));
-    dispatch(authActions.endLoading());
     } catch (error) {
       toast.error(error.response.data.message);
-      dispatch(authActions.endLoading());
       console.log(`error in loginUser: ${error}`);
     }
   };
@@ -43,14 +37,11 @@ export function logoutUser() {
 
 export function verifyAccountEmail(userId, token) {
   return async (dispatch) => {
-    dispatch(authActions.startLoading());
     try {
       await BASE_URL.get(`/api/auth/${userId}/verify/${token}`);
       dispatch(authActions.setIsEmailVerified());
-      dispatch(authActions.endLoading());
     } catch (error) {
       // toast.error(error.response?.data?.message);
-      dispatch(authActions.endLoading());
       console.log(`error in verifyAccountEmail: ${error}`);
     }
   };
