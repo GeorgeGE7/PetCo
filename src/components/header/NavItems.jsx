@@ -21,24 +21,25 @@ const NavItems = ({ setToggle }) => {
           <Link to="/">Shop</Link>
         </li>
 
-        <li onClick={() => setToggle(false)}>
-          <Link to="/user/cart">
-            <span id="cart-length">{userCart?.length}</span>Cart
-          </Link>
-        </li>
-
-        {user && (
-          <>
-            <li onClick={() => setToggle(false)}>
-              <Link to={`/orders/${user?._id}`}>Orders</Link>
-            </li>
-
-            <li onClick={() => setToggle(false)}>
-              <Link to="/posts/create-product">Create</Link>
-            </li>
-          </>
+        {!user?.isAdmin && (
+          <li onClick={() => setToggle(false)}>
+            <Link to="/user/cart">
+              <span id="cart-length">{userCart?.length}</span>Cart
+            </Link>
+          </li>
         )}
 
+        {user && !user?.isAdmin && (
+          <li onClick={() => setToggle(false)}>
+            <Link to={`/orders/${user?._id}`}>Orders</Link>
+          </li>
+        )}
+
+        {user?.isAdmin && (
+          <li onClick={() => setToggle(false)}>
+            <Link to="/posts/create-product">Create</Link>
+          </li>
+        )}
         {user?.isAdmin && (
           <li onClick={() => setToggle(false)}>
             <Link to="/admin-dashboard">Admin Dashboard</Link>
@@ -54,7 +55,9 @@ const NavItems = ({ setToggle }) => {
                 alt="User"
               />
               <span
-                onClick={() => setUserDropdown((prev) => !prev)}
+                onClick={() => {
+                  setUserDropdown((prev) => !prev);
+                }}
                 id="header-username"
               >
                 {user?.username}
@@ -62,12 +65,24 @@ const NavItems = ({ setToggle }) => {
               {userDropdown && (
                 <div id="header-user-dropdown">
                   <Link
-                    onClick={() => setUserDropdown((prev) => !prev)}
+                    style={{ color: "#808080" }}
+                    onClick={() => {
+                      setUserDropdown((prev) => !prev);
+                      setToggle(false);
+                    }}
                     to={`/profile/${user?._id}`}
                   >
                     Profile
                   </Link>
-                  <Link onClick={logoutHandler}>Logout</Link>
+                  <Link
+                    style={{ color: "#808080" }}
+                    onClick={() => {
+                      logoutHandler();
+                      setToggle(false);
+                    }}
+                  >
+                    Logout
+                  </Link>
                 </div>
               )}
             </div>

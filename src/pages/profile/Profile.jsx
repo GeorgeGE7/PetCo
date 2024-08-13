@@ -1,23 +1,23 @@
 //TODO get product by price
 
 import { useEffect, useState } from "react";
-import { useParams, useNavigate } from "react-router-dom";
-import { useDispatch, useSelector } from "react-redux";
-import { toast } from "react-toastify";
 import { RotatingLines } from "react-loader-spinner";
+import { useDispatch, useSelector } from "react-redux";
+import { useNavigate, useParams } from "react-router-dom";
+import { toast } from "react-toastify";
 import swal from "sweetalert";
 import PostList from "../../components/posts/PostList";
 // import { posts } from "../../dummyData";
+import { logoutUser } from "../../redux/apiCalls/authApiCall";
+import { getUserLikedProducts } from "../../redux/apiCalls/postsApiCall";
 import {
   deleteUserProfile,
   getUserProfile,
   uploadUserProfilePhoto,
 } from "../../redux/apiCalls/userProfileApiCall";
-import { logoutUser } from "../../redux/apiCalls/authApiCall";
-import { getUserLikedProducts } from "../../redux/apiCalls/postsApiCall";
-import UpdateProfileModel from "./UpdateProfileModel";
-import UpdateProfileAddressModel from "./UpdateAddressModel";
 import { postActions } from "../../redux/slices/postSlice";
+import UpdateProfileAddressModel from "./UpdateAddressModel";
+import UpdateProfileModel from "./UpdateProfileModel";
 
 import "./profile.css";
 
@@ -124,9 +124,11 @@ const Profile = () => {
                 id="file"
                 onChange={(e) => setFile(e.target.files[0])}
               />
-              <button type="submit" className="btn upload-profile-photo-btn">
-                Upload
-              </button>
+              {file && (
+                <button type="submit" className="btn upload-profile-photo-btn">
+                  Upload
+                </button>
+              )}
             </form>
           )}
         </div>

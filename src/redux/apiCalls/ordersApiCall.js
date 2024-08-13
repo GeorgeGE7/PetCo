@@ -26,6 +26,7 @@ export function createNewOrder(order) {
 
 export function getAllUserOrders(userId) {
   return async (dispatch, getState) => {
+    dispatch(orderActions.startLoading());
     try {
       const response = await BASE_URL.get(`/api/orders/users/${userId}`, {
         headers: {
@@ -33,8 +34,10 @@ export function getAllUserOrders(userId) {
         },
       });
       dispatch(orderActions.setOrders(response.data));
+      dispatch(orderActions.stopLoading());
     } catch (error) {
       toast.error(error.response.data.message);
+      dispatch(orderActions.stopLoading());
       console.log(`error in getAllUserOrders: ${error}`);
     }
   };
@@ -51,6 +54,27 @@ export function getAllAdminOrders() {
     } catch (error) {
       error.response.data.message && toast.error(error.response.data.message);
       console.log(`error in getAllAdminOrders: ${error}`);
+    }
+  };
+}
+
+export function updateOrderStatus(orderId, status) {
+  return async (dispatch, getState) => {
+    try {
+      const response = await BASE_URL.put(
+        `/api/orders/${orderId}`,
+        { status },
+        {
+          headers: {
+            Authorization: "Bearer " + getState().auth.user.token,
+          },
+        }
+      );
+      dispatch(orderActions.updateOrder(response.data?.order));
+      toast.success(response.data.message);
+    } catch (error) {
+      toast.error(error.response.data.message);
+      console.log(`error in updateOrderStatus: ${error}`);
     }
   };
 }

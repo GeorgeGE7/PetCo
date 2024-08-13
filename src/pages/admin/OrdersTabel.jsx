@@ -8,7 +8,7 @@ import AdminSidebar from "./AdminSidebar";
 import "./tables.css";
 import { Link } from "react-router-dom";
 import { postActions } from "../../redux/slices/postSlice";
-import { getAllAdminOrders } from "../../redux/apiCalls/ordersApiCall";
+import { getAllAdminOrders, updateOrderStatus } from "../../redux/apiCalls/ordersApiCall";
 import { getSinglePost } from "../../redux/apiCalls/postsApiCall";
 import Order from "./order";
 
@@ -20,24 +20,9 @@ const OrdersTable = () => {
     dispatch(postActions.hideSearchBar());
     dispatch(getAllAdminOrders());
   }, []);
-  const deleteTableItemHandler = () => {
-    swal({
-      title: "Are you sure?",
-      text: "Once deleted, you will not be able to recover this!",
-      icon: "warning",
-      buttons: true,
-      dangerMode: true,
-    }).then((willDelete) => {
-      if (willDelete) {
-        swal("Review has been deleted!", {
-          icon: "success",
-        });
-      } else {
-        swal("No changes happened");
-      }
-    });
+  const handleStatusChange = (id, status) => {
+    dispatch(updateOrderStatus(id, status))
   };
-  console.log(adminOrders);
   return (
     <main id="admin-main-table">
       <AdminSidebar />
@@ -58,7 +43,7 @@ const OrdersTable = () => {
                 key={item._id}
                 item={item}
                 index={index}
-                deleteTableItemHandler={deleteTableItemHandler}
+                handleStatusChange={handleStatusChange}
               />
             ))}
           </tbody>

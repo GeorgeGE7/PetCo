@@ -20,7 +20,7 @@ const CartPage = () => {
         {userCart?.length === 0 ? (
           <>
             <h2 id="category-not-found">
-              There is no product on your cart yet!
+              There is no product on your cart!
             </h2>
             <Link className="btn category-not-found-link" to="/">
               Back to home
